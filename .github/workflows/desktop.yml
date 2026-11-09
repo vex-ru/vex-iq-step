@@ -27,12 +27,15 @@ jobs:
             zip -r vex-iq-models.zip stl/
           else
             echo "stl directory not found, checking subdirectories..."
-            find . -type f \( -name "*.stl" -o -name "*.3mf" \) | zip -@ vex-iq-models.zip
+            find . -type f \( -name "*.stl" -o -name "*.3mf" -o -name "*.step" \) | zip -@ vex-iq-models.zip || echo "No models to zip"
           fi
-          ls -lh vex-iq-models.zip
+          if [ -f "vex-iq-models.zip" ]; then
+            ls -lh vex-iq-models.zip
+          fi
 
       - name: Upload models ZIP to GitHub Release
         uses: softprops/action-gh-release@v2
+        if: startsWith(github.ref, 'refs/tags/')
         with:
           files: vex-iq-models.zip
         env:
@@ -70,16 +73,15 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: 'npm'
 
       - name: Install dependencies
-        run: npm ci
+        run: npm install --legacy-peer-deps
 
       - name: Build Web Application
         run: npm run build
 
       - name: Install Electron & electron-builder
-        run: npm install -D electron@latest electron-builder@latest
+        run: npm install -D electron@latest electron-builder@latest --legacy-peer-deps
 
       - name: Package Desktop App for ${{ matrix.platform }}
         run: |
