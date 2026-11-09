@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0a0f1d"/>
+      <stop offset="100%" stop-color="#0369a1"/>
+    </linearGradient>
+    <linearGradient id="tealGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#38bdf8"/>
+      <stop offset="100%" stop-color="#0284c7"/>
+    </linearGradient>
+  </defs>
+  <rect width="512" height="512" rx="110" fill="url(#bg)"/>
+  <!-- Isometric 3D VEX Beam & Gear -->
+  <g transform="translate(256, 256) scale(1.6)">
+    <!-- 3D Cube / Part -->
+    <path d="M 0 -70 L 65 -32 L 65 45 L 0 85 L -65 45 L -65 -32 Z" fill="#0f172a" stroke="#0284c7" stroke-width="4"/>
+    <path d="M 0 -70 L 65 -32 L 0 6 L -65 -32 Z" fill="url(#tealGrad)"/>
+    <path d="M 0 6 L 65 -32 L 65 45 L 0 85 Z" fill="#0369a1"/>
+    <path d="M -65 -32 L 0 6 L 0 85 L -65 45 Z" fill="#0284c7"/>
+    <!-- Pitch hole -->
+    <ellipse cx="0" cy="-32" rx="16" ry="8" fill="#0a0f1d" stroke="#38bdf8" stroke-width="3"/>
+  </g>
+</svg>

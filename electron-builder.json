@@ -1,0 +1,29 @@
+{
+  "appId": "com.vexiq.cadviewer",
+  "productName": "VEX IQ 3D CAD Viewer",
+  "directories": {
+    "output": "dist_electron"
+  },
+  "files": [
+    "dist/**/*",
+    "electron/**/*"
+  ],
+  "main": "electron/main.cjs",
+  "win": {
+    "target": ["nsis", "msi"]
+  },
+  "nsis": {
+    "oneClick": false,
+    "allowToChangeInstallationDirectory": true,
+    "createDesktopShortcut": true,
+    "createStartMenuShortcut": true
+  },
+  "mac": {
+    "target": ["dmg"],
+    "category": "public.app-category.education"
+  },
+  "linux": {
+    "target": ["AppImage", "deb"],
+    "category": "Science"
+  }
+}

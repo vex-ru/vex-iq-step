@@ -1,0 +1,101 @@
+name: Build Cross-Platform Desktop Installers & Release Assets
+
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  # 1. Package models into vex-iq-models.zip and upload to GitHub Release
+  package-models-zip:
+    name: Package 3D STL Models ZIP
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          lfs: true
+
+      - name: Create ZIP archive of all 3D STL models
+        run: |
+          echo "Packaging models from stl/ directory..."
+          if [ -d "stl" ]; then
+            zip -r vex-iq-models.zip stl/
+          else
+            echo "stl directory not found, checking subdirectories..."
+            find . -type f \( -name "*.stl" -o -name "*.3mf" \) | zip -@ vex-iq-models.zip
+          fi
+          ls -lh vex-iq-models.zip
+
+      - name: Upload models ZIP to GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: vex-iq-models.zip
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  # 2. Build Desktop Executables across Windows, macOS and Linux
+  build-desktop-app:
+    name: Build Desktop Installer (${{ matrix.os }})
+    needs: package-models-zip
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: windows-latest
+            platform: win
+            targets: "nsis,msi"
+            artifact_name: "Windows Installer (.exe / .msi)"
+          - os: macos-latest
+            platform: mac
+            targets: "dmg"
+            artifact_name: "macOS Installer (.dmg)"
+          - os: ubuntu-latest
+            platform: linux
+            targets: "AppImage,deb"
+            artifact_name: "Linux Executable (.AppImage / .deb)"
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          lfs: true
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build Web Application
+        run: npm run build
+
+      - name: Install Electron & electron-builder
+        run: npm install -D electron@latest electron-builder@latest
+
+      - name: Package Desktop App for ${{ matrix.platform }}
+        run: |
+          npx electron-builder --${{ matrix.platform }} --publish never
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Upload Installers to GitHub Release
+        uses: softprops/action-gh-release@v2
+        if: startsWith(github.ref, 'refs/tags/')
+        with:
+          files: |
+            dist_electron/*.exe
+            dist_electron/*.msi
+            dist_electron/*.dmg
+            dist_electron/*.AppImage
+            dist_electron/*.deb
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

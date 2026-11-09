@@ -1,0 +1,38 @@
+{
+  "id": "/",
+  "name": "VEX IQ 3D CAD Parts Viewer",
+  "short_name": "VEX IQ 3D",
+  "description": "Интерактивный 3D-просмотрщик и каталог моделей деталей VEX IQ с кэшированием и STL загрузкой",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#0a0f1d",
+  "theme_color": "#00a3e0",
+  "icons": [
+    {
+      "src": "/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "/pwa-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/pwa-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/pwa-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}

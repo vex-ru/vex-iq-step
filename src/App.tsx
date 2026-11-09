@@ -9,22 +9,23 @@ import { VexViewer3D } from './components/VexViewer3D';
 import { CatalogSidebar } from './components/CatalogSidebar';
 import { DeploymentGuideModal } from './components/DeploymentGuideModal';
 import { StorageSettingsModal } from './components/StorageSettingsModal';
+import { DataSourceModal } from './components/DataSourceModal';
+import { PWAInstallButton } from './components/PWAInstallButton';
 import { downloadPartSTL } from './services/downloadHelper';
 import { getCacheStats } from './services/modelCache';
-import type { ModelSourceType } from './services/modelSource';
 import {
   Menu,
   FileCode,
   HardDrive,
-  Download,
-  Share2,
-  Bookmark,
+  DownloadCloud,
   ChevronLeft,
   ChevronRight,
   Info,
+  Layers,
 } from 'lucide-react';
 
 const FAVORITES_KEY = 'vex_iq_favorites_v1';
+const PREVENT_STARTUP_MODAL_KEY = 'vex_iq_hide_startup_modal';
 
 export default function App() {
   // Active part (Default to 24 Tooth Gear or 1x10 Beam)
@@ -36,6 +37,7 @@ export default function App() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const [isDeployGuideOpen, setIsDeployGuideOpen] = useState(false);
   const [isStorageModalOpen, setIsStorageModalOpen] = useState(false);
+  const [isDataSourceModalOpen, setIsDataSourceModalOpen] = useState(false);
   const [toastMessage, setToastMessage] = useState<string | null>(null);
 
   // Favorites
@@ -63,7 +65,7 @@ export default function App() {
     setToastMessage(msg);
     setTimeout(() => {
       setToastMessage((prev) => (prev === msg ? null : prev));
-    }, 3200);
+    }, 3500);
   }, []);
 
   // Refresh cache status from IndexedDB
@@ -76,13 +78,21 @@ export default function App() {
         sizeMB: stats.totalBytes / (1024 * 1024),
         paths: pathSet,
       });
+      return stats.count;
     } catch (e) {
       console.warn('Cache stats error', e);
+      return 0;
     }
   }, []);
 
+  // Check on initial mount whether to prompt data source modal
   useEffect(() => {
-    refreshCacheStats();
+    refreshCacheStats().then((count) => {
+      const shouldHide = localStorage.getItem(PREVENT_STARTUP_MODAL_KEY) === 'true';
+      if (!shouldHide && count === 0) {
+        setIsDataSourceModalOpen(true);
+      }
+    });
   }, [refreshCacheStats]);
 
   // Toggle favorite
@@ -160,7 +170,7 @@ export default function App() {
           }
         }}
         onDownloadStl={handleDownloadPart}
-        onOpenFolderPicker={() => setIsStorageModalOpen(true)}
+        onOpenFolderPicker={() => setIsDataSourceModalOpen(true)}
         onOpenDeployGuide={() => setIsDeployGuideOpen(true)}
         onOpenSettings={() => setIsStorageModalOpen(true)}
         cachedPaths={cacheStats.paths}
@@ -175,7 +185,7 @@ export default function App() {
       {/* Main 3D Viewport Area */}
       <main className="flex-1 relative h-full flex flex-col min-w-0">
         {/* Top Floating App Bar */}
-        <header className="absolute top-4 left-4 right-4 z-20 flex items-center justify-between pointer-events-none">
+        <header className="absolute top-4 left-4 right-4 z-20 flex items-center justify-between pointer-events-none gap-2">
           <div className="flex items-center gap-2 pointer-events-auto">
             {/* Sidebar toggle button */}
             <button
@@ -195,7 +205,7 @@ export default function App() {
               >
                 <ChevronLeft className="w-4 h-4" />
               </button>
-              <span className="text-[11px] font-mono text-slate-400 px-2 select-none">
+              <span className="text-[11px] font-mono text-slate-400 px-2 select-none hidden sm:inline">
                 {currentIndex + 1} / {VEX_PARTS.length}
               </span>
               <button
@@ -208,21 +218,44 @@ export default function App() {
             </div>
           </div>
 
-          <div className="flex items-center gap-2 pointer-events-auto">
+          {/* Right Action Group */}
+          <div className="flex items-center gap-2 pointer-events-auto flex-wrap justify-end">
+            {/* Install PWA Button */}
+            <PWAInstallButton />
+
+            {/* Auto-load ZIP / GitHub Releases Button */}
             <button
-              onClick={() => setIsDeployGuideOpen(true)}
-              className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold bg-slate-900/90 hover:bg-slate-800 text-cyan-400 border border-cyan-500/30 shadow-lg transition-all cursor-pointer"
+              onClick={() => setIsDataSourceModalOpen(true)}
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold bg-gradient-to-r from-blue-700 to-cyan-600 hover:from-blue-600 hover:to-cyan-500 text-white shadow-lg shadow-cyan-950/40 border border-cyan-400/30 transition-all cursor-pointer"
+              title="Загрузка архива ZIP с GitHub Releases или с диска"
             >
-              <FileCode className="w-3.5 h-3.5" />
-              Инструкция: GitHub & Cloud
+              <DownloadCloud className="w-3.5 h-3.5" />
+              <span className="hidden md:inline">Загрузить архив (ZIP / Releases)</span>
+              <span className="md:hidden">ZIP</span>
+              {cacheStats.count > 0 && (
+                <span className="px-1.5 py-0.2 rounded-full text-[10px] bg-cyan-950 text-cyan-300 font-mono">
+                  {cacheStats.count}
+                </span>
+              )}
             </button>
 
+            {/* Guide Button */}
+            <button
+              onClick={() => setIsDeployGuideOpen(true)}
+              className="hidden lg:flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold bg-slate-900/90 hover:bg-slate-800 text-cyan-400 border border-cyan-500/30 shadow-lg transition-all cursor-pointer"
+            >
+              <FileCode className="w-3.5 h-3.5" />
+              GitHub & CI/CD
+            </button>
+
+            {/* Storage Settings Button */}
             <button
               onClick={() => setIsStorageModalOpen(true)}
-              className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold bg-slate-900/90 hover:bg-slate-800 text-slate-200 border border-slate-700/80 shadow-lg transition-all cursor-pointer"
+              className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl text-xs font-semibold bg-slate-900/90 hover:bg-slate-800 text-slate-300 border border-slate-700/80 shadow-lg transition-all cursor-pointer"
+              title="Управление локальным кэшем и облачным хранилищем"
             >
               <HardDrive className="w-3.5 h-3.5 text-cyan-400" />
-              <span className="hidden md:inline">Кэш & Хранилище</span>
+              <span className="hidden xl:inline">Кэш</span>
             </button>
           </div>
         </header>
@@ -250,13 +283,25 @@ export default function App() {
         )}
       </main>
 
+      {/* Startup & Data Source Selector Modal */}
+      <DataSourceModal
+        isOpen={isDataSourceModalOpen}
+        onClose={() => setIsDataSourceModalOpen(false)}
+        cachedCount={cacheStats.count}
+        onSuccess={(count) => {
+          setIsDataSourceModalOpen(false);
+          refreshCacheStats();
+          showToast(`Успешно загружено и сохранено в кэш ${count} деталей VEX IQ!`);
+        }}
+      />
+
       {/* Deployment & Architecture Guide Modal */}
       <DeploymentGuideModal
         isOpen={isDeployGuideOpen}
         onClose={() => setIsDeployGuideOpen(false)}
       />
 
-      {/* Storage Settings & Local Folder Picker Modal */}
+      {/* Storage Settings Modal */}
       <StorageSettingsModal
         isOpen={isStorageModalOpen}
         onClose={() => setIsStorageModalOpen(false)}
