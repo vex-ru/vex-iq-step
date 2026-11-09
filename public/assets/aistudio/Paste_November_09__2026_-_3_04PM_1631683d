@@ -1,0 +1,497 @@
+[4.0K]  .
+├── [ 12K]  GUI.py
+├── [ 13K]  index.html
+├── [4.2K]  main.py
+├── [ 83K]  models_data.js
+├── [1.6K]  organize.sh
+├── [  13]  README.md
+├── [4.0K]  stl
+│   ├── [4.0K]  01_Beams
+│   │   ├── [ 11M]  01_Beams.3mf
+│   │   ├── [674K]  12x Robot Arm Beam (228-2500-472).stl
+│   │   ├── [1.0M]  17x Robot Arm Beam (228-2500-471).stl
+│   │   ├── [868K]  1x10 Beam (228-2500-009).stl
+│   │   ├── [847K]  1x11 Beam (228-2500-010).stl
+│   │   ├── [987K]  1x12 Beam (228-2500-011).stl
+│   │   ├── [986K]  1x13 Beam (228-2500-012).stl
+│   │   ├── [1.1M]  1x14 Beam (228-2500-013).stl
+│   │   ├── [1.2M]  1x16 Beam (228-2500-014).stl
+│   │   ├── [1.4M]  1x18 Beam (228-2500-015).stl
+│   │   ├── [148K]  1x1 Beam (228-2500-154).stl
+│   │   ├── [215K]  1x1 Left Corner Beam (228-2500-391).stl
+│   │   ├── [215K]  1x1 Right Corner Beam (228-2500-392).stl
+│   │   ├── [1.5M]  1x20 Beam (228-2500-016).stl
+│   │   ├── [289K]  1x2 Beam (228-2500-001).stl
+│   │   ├── [288K]  1x3 Beam (228-2500-002).stl
+│   │   ├── [353K]  1x3 Center Lock Beam (228-2500-1141).stl
+│   │   ├── [353K]  1x3 Center Lock Beam (228-2500-141).stl
+│   │   ├── [429K]  1x4 Beam (228-2500-003).stl
+│   │   ├── [351K]  1x4 Low Profile End Lock Beam (228-2500-1548).stl
+│   │   ├── [762K]  1x4 Single-Ended Ball Socket Beam (228-2500-1689).stl
+│   │   ├── [428K]  1x5 Beam (228-2500-004).stl
+│   │   ├── [294K]  1x5 Linear Motion Beam (228-2500-1456).stl
+│   │   ├── [485K]  1x6 (3-4-5 Triangle) Diagonal Offset Truss Beam (228-2500-1110).stl
+│   │   ├── [568K]  1x6 Beam (228-2500-005).stl
+│   │   ├── [541K]  1x6 Smooth Beam (228-2500-323).stl
+│   │   ├── [568K]  1x7 Beam (228-2500-006).stl
+│   │   ├── [1.3M]  1x7 Spider Fork Beam (228-2500-153).stl
+│   │   ├── [707K]  1x8 Beam (228-2500-007).stl
+│   │   ├── [707K]  1x9 Beam (228-2500-008).stl
+│   │   ├── [1.9M]  2x10 Beam (228-2500-025).stl
+│   │   ├── [2.1M]  2x11 Beam (228-2500-206).stl
+│   │   ├── [2.3M]  2x12 Beam (228-2500-026).stl
+│   │   ├── [2.7M]  2x14 Beam (228-2500-027).stl
+│   │   ├── [3.1M]  2x16 Beam (228-2500-028).stl
+│   │   ├── [3.5M]  2x18 Beam (228-2500-029).stl
+│   │   ├── [356K]  2x1 Extended Left Corner Beam (228-2500-408).stl
+│   │   ├── [356K]  2x1 Extended Right Corner Beam (228-2500-409).stl
+│   │   ├── [356K]  2x1 Left Corner Beam (228-2500-400).stl
+│   │   ├── [356K]  2x1 Right Corner Beam (228-2500-401).stl
+│   │   ├── [337K]  2x1x1 Landing Gear Beam (228-2500-1924).stl
+│   │   ├── [3.8M]  2x20 Beam (228-2500-030).stl
+│   │   ├── [299K]  2x2 30 Degree Beam (228-2500-1485).stl
+│   │   ├── [305K]  2x2 45 Degree Beam (228-2500-1486).stl
+│   │   ├── [484K]  2x2 Beam (228-2500-017).stl
+│   │   ├── [476K]  2x2 Center Lock Beam (228-2500-1140).stl
+│   │   ├── [476K]  2x2 Center Lock Beam (228-2500-140).stl
+│   │   ├── [481K]  2x2 Center Offset Round Lock Beam (228-2500-1925).stl
+│   │   ├── [452K]  2x2 Extended Left Corner Beam (228-2500-412).stl
+│   │   ├── [452K]  2x2 Extended Right Corner Beam (228-2500-413).stl
+│   │   ├── [451K]  2x2 Left Corner Beam (228-2500-406).stl
+│   │   ├── [451K]  2x2 Right Corner Beam (228-2500-407).stl
+│   │   ├── [612K]  2x3 Beam (228-2500-018).stl
+│   │   ├── [420K]  2x3 Delta Tee Beam (228-2500-1189).stl
+│   │   ├── [393K]  2x3 Right Angle Beam (228-2500-145).stl
+│   │   ├── [808K]  2x4 Beam (228-2500-019).stl
+│   │   ├── [533K]  2x4 Wedge Beam (228-2500-1240).stl
+│   │   ├── [543K]  2x4x2 Double 60 Degree Beam (228-2500-1199).stl
+│   │   ├── [1004K]  2x5 Beam (228-2500-020).stl
+│   │   ├── [1.2M]  2x6 Beam (228-2500-021).stl
+│   │   ├── [1.2M]  2x6 Beam with Chamferred Ends (228-2500-322).stl
+│   │   ├── [729K]  2x6x2 30 Degree Jogged Beam (228-2500-1556).stl
+│   │   ├── [1.4M]  2x7 Beam (228-2500-022).stl
+│   │   ├── [1.6M]  2x8 Beam (228-2500-023).stl
+│   │   ├── [1.7M]  2x9 Beam (228-2500-024).stl
+│   │   ├── [1.1M]  2x Wide, 3x3 60 Degree Angle Beam (228-2500-1268).stl
+│   │   ├── [438K]  3x3 30 Degree Angle Beam (228-2500-147).stl
+│   │   ├── [444K]  3x3 45 Degree Angle Beam (228-2500-148).stl
+│   │   ├── [451K]  3x3 60 Degreee Angle Beam (228-2500-149).stl
+│   │   ├── [847K]  3x3 Plus Gusset Beam (228-2500-156).stl
+│   │   ├── [463K]  3x3 Right Angle Beam (228-2500-146).stl
+│   │   ├── [640K]  3x3 Wye Lock Beam (228-2500-1159).stl
+│   │   ├── [640K]  3x3 Wye Lock Beam (228-2500-161).stl
+│   │   ├── [568K]  3x4 Tee Beam (228-2500-144).stl
+│   │   ├── [604K]  3x5 Right Angle Beam (228-2500-150).stl
+│   │   ├── [608K]  4x4 Offset Right Angle Beam (228-2500-151).stl
+│   │   ├── [1.0M]  4x7x4 Offset Channel Beam (228-2500-2001).stl
+│   │   ├── [844K]  5x2x2 Tee Beam (228-2500-1601).stl
+│   │   ├── [986K]  5x6.5 Tee Beam (228-2500-152).stl
+│   │   ├── [765K]  6x2x2 Tee Beam (228-2500-478).stl
+│   │   ├── [342K]  Fork Lift Beam (228-2500-298).stl
+│   │   └── [505K]  Truss Standoff Connector (228-2500-1109).stl
+│   ├── [ 12K]  02_Plates_and_Panels
+│   │   ├── [ 56M]  02_Plates_and_Panels.3mf
+│   │   ├── [ 17M]  12x12 Plate (228-2500-059).stl
+│   │   ├── [9.7M]  12x12 Truss Plate (228-2500-205).stl
+│   │   ├── [ 12M]  14x14 Octagon Truss Plate (228-2500-1381).stl
+│   │   ├── [279K]  160mm Fender Panel Left (228-2500-285).stl
+│   │   ├── [279K]  160mm Fender Panel Right (228-2500-286).stl
+│   │   ├── [168K]  1x1 Smooth Panel (228-2500-510).stl
+│   │   ├── [263K]  1x2 Smooth Panel (228-2500-511).stl
+│   │   ├── [274K]  1x3 Bottom Shuttle Nose Panel (228-2500-2020).stl
+│   │   ├── [272K]  1x3, Extended 0.5 x 1x Pitch, Diagonal Left Corner Sloped Panel (228-2500-1727).stl
+│   │   ├── [272K]  1x3, Extended 0.5 x 1x Pitch, Diagonal Right Corner Sloped Panel (228-2500-1728).stl
+│   │   ├── [287K]  1x4 Smooth Panel (228-2500-513).stl
+│   │   ├── [368K]  25mm Half Tube 3x Pitch Barrel End (228-2500-1302).stl
+│   │   ├── [814K]  25mm Half Tube 60 Degree Turn Small (228-2500-1287).stl
+│   │   ├── [911K]  25mm Half Tube 6x Pitch Straight (228-2500-1277).stl
+│   │   ├── [365K]  2.5x5 Asymmetric End Flat Panel (228-2500-2017).stl
+│   │   ├── [212K]  2x1x1.5 Offset Wing Connector (228-2500-2011).stl
+│   │   ├── [283K]  2x2, Extended 0.5 x 1x Pitch Sloped Panel (228-2500-1702).stl
+│   │   ├── [283K]  2x3 Irregular Hexagon Flat Panel (228-2500-2014).stl
+│   │   ├── [575K]  2x4 25mm Ball Shooter Plate (Strong) (228-2500-509).stl
+│   │   ├── [539K]  2x4 25mm Ball Shooter Plate (Weak) (228-2500-507).stl
+│   │   ├── [382K]  2x4.75 Curved Fade Panel (228-2500-2007).stl
+│   │   ├── [507K]  2x4, Extended 0.5 x 1x Pitch Sloped Panel (228-2500-1704).stl
+│   │   ├── [520K]  2x4 Smooth Panel (228-2500-520).stl
+│   │   ├── [430K]  2x5 Eagle Head Panel (228-2500-2006).stl
+│   │   ├── [620K]  2x5, Extended 0.5 x 1x Pitch Sloped Panel (228-2500-1705).stl
+│   │   ├── [840K]  2x6 Handle Plate (228-2500-1436).stl
+│   │   ├── [1.5M]  2x7 Landing Gear Panel (228-2500-2004).stl
+│   │   ├── [614K]  2x8 Medium Convex Plate (228-2500-1445).stl
+│   │   ├── [531K]  2x8 Smooth Panel (228-2500-524).stl
+│   │   ├── [1.4M]  3-Way 2x3 Plate (228-2500-304).stl
+│   │   ├── [1.6M]  3-Way Perpendicular 1x2 Plate (228-2500-305).stl
+│   │   ├── [3.1M]  3x10 Plate (228-2500-036).stl
+│   │   ├── [2.9M]  3x12 Girder Plate; 2x8 2x Offset Trapezoid (228-2500-1600).stl
+│   │   ├── [3.7M]  3x12 Plate (228-2500-037).stl
+│   │   ├── [5.0M]  3x16 Plate (228-2500-038).stl
+│   │   ├── [494K]  3x1, R5 x Flat Curve Panel (228-2500-2100).stl
+│   │   ├── [861K]  3x2, R5 x Flat Curve Panel (228-2500-2101).stl
+│   │   ├── [295K]  3x3.5 Irregular Hexagon Flat Panel (228-2500-2015).stl
+│   │   ├── [934K]  3x3 Plate (228-2500-031).stl
+│   │   ├── [1.4M]  3x3, R5 x R5 Curve Panel (228-2500-2116).stl
+│   │   ├── [851K]  3x4 1x Offset Trapezoid Plate (228-2500-1357).stl
+│   │   ├── [346K]  3x4 End Flat Panel (228-2500-2016).stl
+│   │   ├── [1.2M]  3x4 Plate (228-2500-032).stl
+│   │   ├── [1.0M]  3x4, R5 x Flat Left Concave Curve Panel (228-2500-2124).stl
+│   │   ├── [1.0M]  3x4, R5 x Flat Right Concave Curve Panel (228-2500-2125).stl
+│   │   ├── [1.5M]  3x4x3, R5 x R6 x Flat R5 Left Curve Panel (228-2500-2134).stl
+│   │   ├── [1.5M]  3x4x3, R5 x R6 x Flat R5 Right Curve Panel (228-2500-2135).stl
+│   │   ├── [1.3M]  3x5.5 Front Shuttle Panel (228-2500-2008).stl
+│   │   ├── [398K]  3x5 Dual Curved Fade Panel (228-2500-2009).stl
+│   │   ├── [919K]  3x5 Wedge Plate (228-2500-1245).stl
+│   │   ├── [3.3M]  3x5x3.5 Vehicle Cab (228-2500-2002).stl
+│   │   ├── [1.9M]  3x6 Plate (228-2500-034).stl
+│   │   ├── [2.5M]  3x8 Plate (228-2500-035).stl
+│   │   ├── [1.9M]  4.5x4.5 Diagonal Corner Panel (228-2500-2003).stl
+│   │   ├── [4.3M]  4x10 Plate (228-2500-044).stl
+│   │   ├── [5.2M]  4x12 Plate (228-2500-045).stl
+│   │   ├── [6.9M]  4x16 Plate (228-2500-046).stl
+│   │   ├── [667K]  4x1, R6 x Flat Curve Panel (228-2500-2108).stl
+│   │   ├── [1.1M]  4x2, Dual 0.5 x 2x Pitch Fade Double Sloped Panel (228-2500-1848).stl
+│   │   ├── [1.1M]  4x2, R6 x Flat Curve Panel (228-2500-2109).stl
+│   │   ├── [878K]  4x4 25mm Tube Plus Plate (228-2500-1270).stl
+│   │   ├── [1.7M]  4x4, Dual R6 Quarter Round Panel (228-2500-2161).stl
+│   │   ├── [1.7M]  4x4 Plate (228-2500-040).stl
+│   │   ├── [2.1M]  4x5, Dual 0.5 x 2x Pitch Extended Fade Sloped Panel (228-2500-1849).stl
+│   │   ├── [2.4M]  4x6, Dual 0.5 x 2x Pitch Double Sloped Panel (228-2500-1828).stl
+│   │   ├── [2.5M]  4x6 Plate (228-2500-042).stl
+│   │   ├── [1017K]  4x7 Landing Skid Plate (228-2500-2018).stl
+│   │   ├── [3.4M]  4x8 Plate (228-2500-043).stl
+│   │   ├── [2.9M]  5x Pitch Diameter, 10x Pitch Long Half Round Panel (228-2500-1698).stl
+│   │   ├── [3.8M]  6x10 Bone Plate (228-2500-203).stl
+│   │   ├── [8.0M]  6x12 Plate (228-2500-051).stl
+│   │   ├── [3.7M]  6x6 Hexagon Plate (228-2500-2000).stl
+│   │   ├── [1.8M]  7x9x11 (6-8-10 Triangle) Truss Plate (228-2500-1117).stl
+│   │   ├── [579K]  9x4.5 Solar Flat Panel (228-2500-2010).stl
+│   │   ├── [ 13M]  Airplane Nose Hook (228-2500-1700).stl
+│   │   ├── [3.7M]  Ant Center Plate (228-2500-316).stl
+│   │   ├── [ 15M]  Ant Front Plate (228-2500-315).stl
+│   │   ├── [1.8M]  Ant Rear Plate (228-2500-317).stl
+│   │   ├── [498K]  Blank Award, VIQC Team Number Plate (228-2500-291).stl
+│   │   ├── [2.0M]  Blank VRC, VEXU Team Number Plate (228-2500-292).stl
+│   │   ├── [488K]  Blank Year Plate (228-2500-290).stl
+│   │   ├── [105K]  Cable Anchor (228-2500-158).stl
+│   │   ├── [342K]  Dual R5, Left Curve Filler Panel (228-2500-2120).stl
+│   │   ├── [342K]  Dual R5, Right Curve Filler Panel (228-2500-2121).stl
+│   │   ├── [2.7M]  Large Vehicle Cab 4x Wide Windshield (228-2500-2023).stl
+│   │   ├── [1.2M]  Large Vehicle Cab Left Panel (228-2500-2021).stl
+│   │   ├── [1.2M]  Large Vehicle Cab Right Panel (228-2500-2022).stl
+│   │   ├── [2.5M]  Left Shuttle Panel (228-2500-2013).stl
+│   │   ├── [192K]  Racer Nose Panel (228-2500-287).stl
+│   │   ├── [461K]  Racer Windscreen (228-2500-288).stl
+│   │   ├── [2.5M]  Right Shuttle Wing (228-2500-2012).stl
+│   │   ├── [952K]  Scarab Front Shell (228-2500-312).stl
+│   │   ├── [739K]  Scarab Rear Shell (228-2500-313).stl
+│   │   ├── [1.3M]  Scarab Top Shell (228-2500-311).stl
+│   │   ├── [1.3M]  Skyhook Hood (228-2500-299).stl
+│   │   ├── [2.4M]  Spider Face Plate (228-2500-307).stl
+│   │   ├── [1.8M]  Spider Top Plate - Front (228-2500-308).stl
+│   │   ├── [2.4M]  Spider Top Plate - Rear (228-2500-309).stl
+│   │   ├── [767K]  Strandbeast Face Plate (228-2500-302).stl
+│   │   └── [3.2M]  XL Turntable Spider Top Plate (228-2500-198).stl
+│   ├── [4.0K]  03_Connectors_and_Corners
+│   │   ├── [6.3M]  03_Connectors_and_Corners.3mf
+│   │   ├── [1.9M]  1x2 Left Chassis Corner Connector (228-2500-1254).stl
+│   │   ├── [1.9M]  1x2 Right Chassis Corner Connector (228-2500-1255).stl
+│   │   ├── [696K]  1x Wide, 1x1 Corner Connector (228-2500-129).stl
+│   │   ├── [709K]  1x Wide, 1x1 Corner Connector (Weak) (228-2500-2288).stl
+│   │   ├── [696K]  1x Wide, 1x1 Offset Corner Connector (228-2500-130).stl
+│   │   ├── [877K]  1x Wide, 1x2 Corner Connector (228-2500-279).stl
+│   │   ├── [1.3M]  2x Wide, 1x1 Offset Corner Connector (228-2500-133).stl
+│   │   ├── [1.3M]  2x Wide, 1x2 Corner Connector (228-2500-128).stl
+│   │   ├── [1.4M]  2x Wide, 1x2 Offset Corner Connector (228-2500-135).stl
+│   │   ├── [1.6M]  2x Wide, 1x3 Offset Corner Connector (228-2500-283).stl
+│   │   ├── [1.4M]  2x Wide, 2x1 Corner Connector (228-2500-132).stl
+│   │   ├── [1.4M]  2x Wide, 2x1 Offset Corner Connector (228-2500-131).stl
+│   │   ├── [1.5M]  2x Wide, 2x2 Corner Connector (228-2500-134).stl
+│   │   ├── [1.6M]  2x Wide, 2x2 Corner Connector (Weak) (228-2500-2295).stl
+│   │   ├── [1.6M]  2x Wide, 2x2 Offset Corner Connector (228-2500-136).stl
+│   │   ├── [1.6M]  2x Wide, 2x2 Offset Corner Connector (Weak) (228-2500-2296).stl
+│   │   ├── [1.8M]  2x Wide, 2x3 Corner Connector (228-2500-137).stl
+│   │   ├── [1.3M]  2x Wide, 30 Degree Left 1x2 Corner Connector (228-2500-372).stl
+│   │   ├── [1.3M]  2x Wide, 30 Degree Right 1x2 Corner Connector (228-2500-371).stl
+│   │   ├── [1.4M]  2x Wide, 60 Degree Omni 1x2 Corner Connector (228-2500-368).stl
+│   │   ├── [1.2M]  Double 1x Wide, 1x1 Corner Connector (228-2500-270).stl
+│   │   ├── [1.4M]  Double 1x Wide, 2x1 Corner Connector (228-2500-272).stl
+│   │   ├── [2.3M]  Double 2x Wide, 0.5in Pipe Connector (228-2500-259).stl
+│   │   ├── [2.5M]  Double 2x Wide, 1x2 Corner Connector (228-2500-271).stl
+│   │   ├── [2.5M]  Double 2x Wide, 1x2 Offset Corner Connector (228-2500-274).stl
+│   │   ├── [2.6M]  Double 2x Wide, 2x2 Corner Connector (228-2500-220).stl
+│   │   ├── [2.8M]  Double 2x Wide, 2x2 Double Offset Corner Connector (228-2500-277).stl
+│   │   ├── [2.5M]  Large Chassis Corner Connector (228-2500-126).stl
+│   │   ├── [4.9M]  Quad 2x Wide, 2x2 Corner Connector (228-2500-1258).stl
+│   │   ├── [1.2M]  Small Chassis Corner Connector (228-2500-127).stl
+│   │   ├── [2.5M]  Triple 1-2-1x Wide, 1x2 Corner Connector (228-2500-1251).stl
+│   │   ├── [1.8M]  Triple 1x Wide, 1x1 Corner Connector (228-2500-1250).stl
+│   │   └── [3.8M]  Triple 2x Wide, 2x2 Corner Connector (228-2500-1253).stl
+│   ├── [4.0K]  04_Gears_and_Sprockets
+│   │   ├── [ 37M]  04_Gears_and_Sprockets.3mf
+│   │   ├── [388K]  12 Tooth Gear (228-2500-213).stl
+│   │   ├── [1.7M]  12 Tooth High Strength Bevel Gear (228-2500-463).stl
+│   │   ├── [4.4M]  12 Tooth Hybrid Gear (228-2500-250).stl
+│   │   ├── [388K]  15 Tooth Gear (34DP) (228-2500-461).stl
+│   │   ├── [4.2M]  16 Tooth High Strength Hybrid Gear (228-2500-2181).stl
+│   │   ├── [546K]  16 Tooth Ratchet (228-2500-1407).stl
+│   │   ├── [1.2M]  16 Tooth Sprocket (228-2500-233).stl
+│   │   ├── [2.7M]  18 Tooth Bevel Gear (228-2500-244).stl
+│   │   ├── [934K]  1x20 Linear Motion Rack Gear (228-2500-1454).stl
+│   │   ├── [684K]  1x4 Crank Arm with 23 Tooth Gear (228-2500-246).stl
+│   │   ├── [1.4M]  1x6 Continuous Linear Motion Rack Gear (228-2500-1473).stl
+│   │   ├── [347K]  1x6 Linear Motion Rack Gear (228-2500-1472).stl
+│   │   ├── [164K]  1x Pitch Linear Motion Bracket (Snap) (228-2500-1470).stl
+│   │   ├── [594K]  24 Tooth Gear (228-2500-227).stl
+│   │   ├── [2.0M]  24 Tooth High Strength Dog Gear (228-2500-2191).stl
+│   │   ├── [6.3M]  24 Tooth High Strength Hybrid Gear (228-2500-2182).stl
+│   │   ├── [7.0M]  24 Tooth Hybrid Gear (228-2500-251).stl
+│   │   ├── [2.2M]  24 Tooth Sprocket (228-2500-235).stl
+│   │   ├── [388K]  2x Pitch Linear Motion Bracket (Side Mount) (228-2500-1469).stl
+│   │   ├── [2.7M]  32 Tooth Sprocket (228-2500-236).stl
+│   │   ├── [1.2M]  36 Tooth Crown Gear (228-2500-218).stl
+│   │   ├── [1.3M]  36 Tooth Gear (228-2500-214).stl
+│   │   ├── [781K]  36 Tooth Gear (34DP) (228-2500-462).stl
+│   │   ├── [ 10M]  36 Tooth Hybrid Gear (228-2500-252).stl
+│   │   ├── [1.2M]  36 Tooth Idler Gear (228-2500-451).stl
+│   │   ├── [2.3M]  40 Tooth Ratchet (228-2500-1410).stl
+│   │   ├── [3.6M]  40 Tooth Sprocket (228-2500-237).stl
+│   │   ├── [1.7M]  48 Tooth Gear (228-2500-228).stl
+│   │   ├── [ 13M]  48 Tooth Hybrid Gear (228-2500-253).stl
+│   │   ├── [3.9M]  60 Tooth Gear (228-2500-215).stl
+│   │   ├── [ 18M]  60 Tooth Hybrid Gear (228-2500-254).stl
+│   │   ├── [2.5M]  60 Tooth Internal Ring Gear (228-2500-247).stl
+│   │   ├── [2.8M]  8 Tooth High Strength Hybrid Gear (228-2500-2180).stl
+│   │   ├── [581K]  8 Tooth Sprocket (228-2500-232).stl
+│   │   ├── [5.8M]  Differential Gear (228-2500-245).stl
+│   │   ├── [5.9M]  Differential Gear (High Strength) (228-2500-347).stl
+│   │   ├── [ 79M]  Rack Gear (228-2500-216).stl
+│   │   ├── [2.0M]  Scarab Thrust Washer for 60 Tooth Gear (228-2500-243).stl
+│   │   ├── [1.6M]  Spider 48 Tooth Ring Gear (228-2500-229).stl
+│   │   ├── [164K]  Track Tiebar (228-2500-296).stl
+│   │   ├── [388K]  Track Tiebar with Mounting (228-2500-295).stl
+│   │   ├── [407K]  Worm Gear (228-2500-219).stl
+│   │   └── [1.3M]  XL Turntable 36 Tooth Ring Gear Bushing (228-2500-202).stl
+│   ├── [4.0K]  05_Shafts_Standoffs_and_Spacers
+│   │   ├── [ 49K]  0.25x Pitch Spacer (228-2500-114).stl
+│   │   ├── [997K]  0.25x Pitch Standoff (228-2500-063).stl
+│   │   ├── [5.2M]  05_Shafts_Standoffs_and_Spacers.3mf
+│   │   ├── [997K]  0.5x Pitch Standoff (228-2500-064).stl
+│   │   ├── [558K]  0.5x Pitch Standoff Extender (228-2500-109).stl
+│   │   ├── [1.1M]  0.5x Pitch Standoff (Weak) (228-2500-2268).stl
+│   │   ├── [143K]  10x Pitch Capped Shaft (228-2500-2230).stl
+│   │   ├── [ 90K]  10x Pitch Shaft (228-2500-261).stl
+│   │   ├── [143K]  11x Pitch Capped Shaft (228-2500-2231).stl
+│   │   ├── [ 90K]  11x Pitch Shaft (228-2500-262).stl
+│   │   ├── [143K]  12x Pitch Capped Shaft (228-2500-2232).stl
+│   │   ├── [ 90K]  12x Pitch Shaft (228-2500-263).stl
+│   │   ├── [ 90K]  14x Pitch Shaft (228-2500-264).stl
+│   │   ├── [117K]  15 Degree Offset Locking Angle End Standoff Connector (228-2500-192).stl
+│   │   ├── [121K]  1.5x Pitch Plastic Motor Snap Shaft v1 (228-2500-091).stl
+│   │   ├── [1021K]  1.5x Pitch Standoff (228-2500-066).stl
+│   │   ├── [ 90K]  16x Pitch Shaft (228-2500-265).stl
+│   │   ├── [ 90K]  18x Pitch Shaft (228-2500-266).stl
+│   │   ├── [128K]  1x Pitch Plastic Motor Snap Shaft (228-2500-328).stl
+│   │   ├── [1009K]  1x Pitch Standoff (228-2500-065).stl
+│   │   ├── [1.1M]  1x Pitch Standoff (Weak) (228-2500-2269).stl
+│   │   ├── [ 90K]  20x Pitch Shaft (228-2500-267).stl
+│   │   ├── [ 90K]  22x Pitch Shaft (228-2500-268).stl
+│   │   ├── [ 90K]  24x Pitch Shaft (228-2500-269).stl
+│   │   ├── [143K]  2.5x Pitch Capped Shaft (228-2500-2220).stl
+│   │   ├── [ 72K]  2x Pitch Capped Plastic Shaft (228-2500-080).stl
+│   │   ├── [143K]  2x Pitch Capped Shaft (228-2500-2219).stl
+│   │   ├── [607K]  2x Pitch Motor Shaft (228-2500-2234).stl
+│   │   ├── [119K]  2x Pitch Plastic Motor Shaft (228-2500-078).stl
+│   │   ├── [121K]  2x Pitch Plastic Motor Snap Shaft v1 (228-2500-092).stl
+│   │   ├── [ 90K]  2x Pitch Plastic Shaft (228-2500-074).stl
+│   │   ├── [ 90K]  2x Pitch Shaft (228-2500-117).stl
+│   │   ├── [1.0M]  2x Pitch Standoff (228-2500-067).stl
+│   │   ├── [1.2M]  2x Pitch Standoff (Weak) (228-2500-2271).stl
+│   │   ├── [ 72K]  3x Pitch Capped Plastic Shaft (228-2500-081).stl
+│   │   ├── [143K]  3x Pitch Capped Shaft (228-2500-2221).stl
+│   │   ├── [607K]  3x Pitch Motor Shaft (228-2500-2236).stl
+│   │   ├── [119K]  3x Pitch Plastic Motor Shaft (228-2500-094).stl
+│   │   ├── [ 90K]  3x Pitch Plastic Shaft (228-2500-075).stl
+│   │   ├── [ 90K]  3x Pitch Shaft (228-2500-119).stl
+│   │   ├── [1.0M]  3x Pitch Standoff (228-2500-069).stl
+│   │   ├── [220K]  45 Degree Standoff Connector (228-2500-175).stl
+│   │   ├── [143K]  4.5x Pitch Capped Shaft (228-2500-2224).stl
+│   │   ├── [ 72K]  4x Pitch Capped Plastic Shaft (228-2500-082).stl
+│   │   ├── [143K]  4x Pitch Capped Shaft (228-2500-2223).stl
+│   │   ├── [607K]  4x Pitch Motor Shaft (228-2500-2238).stl
+│   │   ├── [119K]  4x Pitch Plastic Motor Shaft (228-2500-079).stl
+│   │   ├── [ 90K]  4x Pitch Plastic Shaft (228-2500-076).stl
+│   │   ├── [ 90K]  4x Pitch Shaft (228-2500-120).stl
+│   │   ├── [1.1M]  4x Pitch Standoff (228-2500-070).stl
+│   │   ├── [ 72K]  5x Pitch Capped Plastic Shaft (228-2500-083).stl
+│   │   ├── [143K]  5x Pitch Capped Shaft (228-2500-2225).stl
+│   │   ├── [ 90K]  5x Pitch Plastic Shaft (228-2500-077).stl
+│   │   ├── [ 90K]  5x Pitch Shaft (228-2500-121).stl
+│   │   ├── [143K]  6x Pitch Capped Shaft (228-2500-2226).stl
+│   │   ├── [7.8M]  6x Pitch Flexible Standoff (228-2500-1934).stl
+│   │   ├── [ 90K]  6x Pitch Shaft (228-2500-122).stl
+│   │   ├── [1.1M]  6x Pitch Standoff (228-2500-072).stl
+│   │   ├── [143K]  7x Pitch Capped Shaft (228-2500-2227).stl
+│   │   ├── [ 90K]  7x Pitch Shaft (228-2500-123).stl
+│   │   ├── [143K]  8x Pitch Capped Shaft (228-2500-2228).stl
+│   │   ├── [ 90K]  8x Pitch Shaft (228-2500-124).stl
+│   │   ├── [1.3M]  8x Pitch Standoff (228-2500-1061).stl
+│   │   ├── [221K]  90 Degree Standoff Connector (228-2500-178).stl
+│   │   ├── [143K]  9x Pitch Capped Shaft (228-2500-2229).stl
+│   │   ├── [ 90K]  9x Pitch Shaft (228-2500-260).stl
+│   │   ├── [2.2M]  Ball Pin Bushing (228-2500-1660).stl
+│   │   ├── [136K]  End Standoff Connector (228-2500-172).stl
+│   │   ├── [1.4M]  Inner Twist Lock Collar (228-2500-225).stl
+│   │   ├── [770K]  Large Turntable Center Bushing (228-2500-194).stl
+│   │   ├── [151K]  Mini Standoff Connector (228-2500-170).stl
+│   │   ├── [2.6M]  Outer Twist Lock Collar (228-2500-226).stl
+│   │   ├── [160K]  Rubber Shaft Collar (228-2500-143).stl
+│   │   ├── [1.9M]  Rubber Shaft Collar v1 (228-2500-168).stl
+│   │   ├── [530K]  Shaft Bushing (228-2500-125).stl
+│   │   ├── [473K]  Small Turntable Center Bushing (228-2500-191).stl
+│   │   ├── [221K]  Straight Standoff Connector (228-2500-171).stl
+│   │   ├── [ 49K]  Washer (228-2500-112).stl
+│   │   ├── [1.4M]  XL Turntable Plain Bushing (228-2500-200).stl
+│   │   └── [2.1M]  XL Turntable Spider Bushing (228-2500-197).stl
+│   ├── [4.0K]  06_Pins
+│   │   ├── [2.9M]  06_Pins.3mf
+│   │   ├── [948K]  0x1 Sheet Pin (228-2500-099).stl
+│   │   ├── [706K]  0x2 Connector Pin (228-2500-086).stl
+│   │   ├── [1.8M]  0x2 Connector Pin with Spherical Cap (228-2500-090).stl
+│   │   ├── [185K]  0x2 Idler Pin (228-2500-084).stl
+│   │   ├── [165K]  0x2 Idler Pin (Weak) (228-2500-2258).stl
+│   │   ├── [831K]  0x3 Connector Pin (228-2500-087).stl
+│   │   ├── [316K]  0x3 Idler Pin (228-2500-097).stl
+│   │   ├── [185K]  0x3 Smooth Idler Pin (Weak) (228-2500-085).stl
+│   │   ├── [1.2M]  1x1 Connector Pin (228-2500-060).stl
+│   │   ├── [1.2M]  1x1 Connector Pin (Weak) (228-2500-2260).stl
+│   │   ├── [671K]  1x1 Idler Pin (228-2500-073).stl
+│   │   ├── [1.2M]  1x2 Connector Pin (228-2500-061).stl
+│   │   ├── [1.3M]  1x2 Connector Pin (Weak) (228-2500-2261).stl
+│   │   ├── [204K]  1x2 Idler Pin (228-2500-098).stl
+│   │   ├── [1.4M]  2x2 Connector Pin (228-2500-062).stl
+│   │   ├── [125K]  2x3 Smooth Idler Pin (228-2500-093).stl
+│   │   ├── [1.7M]  3x3 Connector Pin (228-2500-089).stl
+│   │   ├── [449K]  Minifigure Shoulder Pin (228-2500-1853).stl
+│   │   └── [2.0M]  Strandbeast Spine Arch (228-2500-303).stl
+│   ├── [4.0K]  07_Wheels_Tires_and_Pulleys
+│   │   ├── [1.5M]  0.75x Wide, 1.5x Pitch Diameter Rover Wheel (228-2500-1916).stl
+│   │   ├── [ 59M]  07_Wheels_Tires_and_Pulleys.3mf
+│   │   ├── [970K]  10mm Pulley (228-2500-163).stl
+│   │   ├── [3.1M]  1.5x Wide, 2.5x Pitch Diameter Rover Wheel (228-2500-1917).stl
+│   │   ├── [966K]  20mm Pulley (228-2500-164).stl
+│   │   ├── [550K]  228-2500-1960 (1950 Hub).stl
+│   │   ├── [554K]  228-2500-1960 (1953 Hub).stl
+│   │   ├── [763K]  228-2500-1961 (1950 Hub).stl
+│   │   ├── [767K]  228-2500-1961 (1953 Hub).stl
+│   │   ├── [404K]  2x Wide, 2x Pitch Diameter Rover Wheel (228-2500-1926).stl
+│   │   ├── [2.0M]  2x Wide, 32.2mm Diameter Hub (228-2500-1950).stl
+│   │   ├── [2.0M]  2x Wide, 3.5x Pitch Diameter Balloon Tire (Chevron Offroad Tread) (228-2500-1952).stl
+│   │   ├── [933K]  2x Wide, 3.5x Pitch Diameter Balloon Tire (Trapezoid Offroad Tread) (228-2500-1957).stl
+│   │   ├── [1.4M]  2x Wide, 3x Pitch Diameter Tire (Straight Offroad Tread) (228-2500-1951).stl
+│   │   ├── [1.1M]  2x Wide, 48.5mm Diameter Hub (228-2500-1953).stl
+│   │   ├── [782K]  2x Wide, 5.5x Pitch Diameter Balloon Tire (Trapezoid Offroad Tread) (228-2500-1956).stl
+│   │   ├── [1.2M]  2x Wide, 5x Pitch Diameter Balloon Tire (Racing Slick Tread) (228-2500-1958).stl
+│   │   ├── [2.0M]  2x Wide, 7x Pitch Diameter Balloon Tire (Offroad Hex Tread) (228-2500-1955).stl
+│   │   ├── [1.2M]  2x Wide, 7x Pitch Diameter Balloon Tire (Racing Slick Tread) (228-2500-1954).stl
+│   │   ├── [1.4M]  30mm Pulley (228-2500-165).stl
+│   │   ├── [1.6M]  40mm Pulley (228-2500-166).stl
+│   │   ├── [1.6M]  4x Pitch Diameter (160 mm Travel) Low-Friction Wheel (228-2500-1384).stl
+│   │   ├── [3.1M]  4x Pitch Diameter (160mm Travel) Smooth Wheel (228-2500-1383).stl
+│   │   ├── [ 57M]  6x Pitch Flywheel (75 g) (228-2500-1402).stl
+│   │   ├── [1.2M]  Ant Wheel - 86mm (228-2500-319).stl
+│   │   ├── [1.4M]  Ant Wheel - 96mm (228-2500-318).stl
+│   │   ├── [1.7M]  Hexcalator Wheel (228-2500-297).stl
+│   │   ├── [ 27M]  Large Wheel Hub (64 mm) (228-2500-1211).stl
+│   │   ├── [ 27M]  Large Wheel Hub (64 mm) (228-2500-211).stl
+│   │   ├── [ 19M]  Small Wheel Hub (44 mm) (228-2500-1208).stl
+│   │   ├── [ 19M]  Small Wheel Hub (44 mm) (228-2500-208).stl
+│   │   ├── [2.4M]  Tire (100 mm Travel) (228-2500-207).stl
+│   │   ├── [3.4M]  Tire (160 mm Travel) (228-2500-210).stl
+│   │   ├── [ 19M]  Tire (200 mm Travel) (228-2500-209).stl
+│   │   └── [ 10M]  Tire (250 mm Travel) (228-2500-212).stl
+│   ├── [4.0K]  08_Motors_and_Power
+│   │   ├── [7.9M]  08_Motors_and_Power.3mf
+│   │   ├── [453K]  1x Pitch Actuator Handle (228-2500-1909).stl
+│   │   ├── [5.7M]  3x Pitch 6-Blade Fan (CCW) (228-2500-1919).stl
+│   │   ├── [928K]  3x Pitch Ducted Fan Housing (228-2500-1918).stl
+│   │   ├── [7.0M]  4x Pitch 6-Blade Fan (CCW) (228-2500-1922).stl
+│   │   ├── [912K]  4x Pitch Ducted Fan Housing (228-2500-1921).stl
+│   │   ├── [1.0M]  Dual Motor Support Cap (228-2500-160).stl
+│   │   ├── [255K]  Propeller Clutch (CCW) (228-2500-1446).stl
+│   │   ├── [1023K]  Single Motor Support Cap (228-2500-159).stl
+│   │   ├── [524K]  Small Gripper Actuator (228-2500-1908).stl
+│   │   └── [315K]  Zip Flyer Propeller (CCW) (228-2500-1447).stl
+│   ├── [4.0K]  09_Specialty_Mechanisms_and_Misc
+│   │   ├── [ 19M]  09_Specialty_Mechanisms_and_Misc.3mf
+│   │   ├── [628K]  10x Pitch Wide Front Loader Bucket (228-2500-2028).stl
+│   │   ├── [2.7M]  120x Pitch Rope (228-2500-448).stl
+│   │   ├── [2.7M]  12x Pitch Rope (228-2500-430).stl
+│   │   ├── [210K]  1.5x Pitch Screw Segment (CW) (228-2500-324).stl
+│   │   ├── [1.1M]  1x3 Ball Socket Linkage (228-2500-1664).stl
+│   │   ├── [557K]  1x3 Large Crane Hook (228-2500-1658).stl
+│   │   ├── [1.1M]  1x4 Ball Socket Linkage (228-2500-1665).stl
+│   │   ├── [1.5M]  1x4 Bearing Surface Block (228-2500-314).stl
+│   │   ├── [358K]  1x8 Ballista Arm (228-2500-293).stl
+│   │   ├── [2.7M]  20x Pitch Rope (228-2500-436).stl
+│   │   ├── [1.5M]  24x Pitch Rope (228-2500-438).stl
+│   │   ├── [1.5M]  2x30mm Rubber Belt (228-2500-221).stl
+│   │   ├── [ 49K]  2x30 mm Square Silicone Belt (228-2500-1225).stl
+│   │   ├── [2.7M]  2x3x2.5 Roll Cage (228-2500-2019).stl
+│   │   ├── [1.5M]  2x40mm Rubber Belt (228-2500-222).stl
+│   │   ├── [1.5M]  2x50mm Rubber Belt (228-2500-223).stl
+│   │   ├── [1.5M]  2x60mm Rubber Belt (228-2500-224).stl
+│   │   ├── [2.7M]  48x Pitch Rope (228-2500-442).stl
+│   │   ├── [598K]  4x Pitch Wide Excavator Bucket (228-2500-2029).stl
+│   │   ├── [ 45M]  Ant Front Antenna (228-2500-320).stl
+│   │   ├── [ 23M]  Ant Rear Antenna (228-2500-321).stl
+│   │   ├── [357K]  Ball Machine Claw (228-2500-294).stl
+│   │   ├── [287K]  Cam Follower (228-2500-1303).stl
+│   │   ├── [1.8M]  Chain Link (228-2500-230).stl
+│   │   ├── [271K]  Dial Knob (228-2500-355).stl
+│   │   ├── [671K]  Hand Knob (228-2500-354).stl
+│   │   ├── [723K]  Hand Knob (228-2500-473).stl
+│   │   ├── [1.6M]  Large 1x Pitch Drop Cam (228-2500-1306).stl
+│   │   ├── [1.2M]  Large Spring Dart (228-2500-1394).stl
+│   │   ├── [484K]  Medium Dial Knob (228-2500-477).stl
+│   │   ├── [2.4M]  Minifigure Seat (Snap Mount) (228-2500-1859).stl
+│   │   ├── [313K]  Rubber Band Anchor (228-2500-157).stl
+│   │   ├── [749K]  Scarab Leg (228-2500-310).stl
+│   │   ├── [232K]  Short Low-Profile Pawl (228-2500-1411).stl
+│   │   ├── [ 49K]  Silicone Rubber Band #117B (228-2500-470).stl
+│   │   ├── [ 49K]  Silicone Rubber Band #32 (228-2500-468).stl
+│   │   ├── [ 49K]  Silicone Rubber Band #64 (228-2500-475).stl
+│   │   ├── [ 49K]  Silicone Rubber Band Thin #64 (Use 468) (228-2500-474).stl
+│   │   ├── [1.5M]  Small 2x Pitch Drop Cam (228-2500-1305).stl
+│   │   ├── [2.1M]  Small Auger Drill Bit (228-2500-1907).stl
+│   │   ├── [1.1M]  Spider Leg (228-2500-306).stl
+│   │   ├── [1.4M]  Strandbeast Leg (228-2500-301).stl
+│   │   ├── [888K]  Strandbeast Shoulder Blade (228-2500-300).stl
+│   │   ├── [1.9M]  Tank Tread, Attachment Link (228-2500-231).stl
+│   │   └── [3.3M]  Traction Link (228-2500-239).stl
+│   └── [4.0K]  99_Other
+│       ├── [1.6M]  1.5x3 Oblong Satellite Dish (228-2500-1900).stl
+│       ├── [419K]  1x Wide Spool (228-2500-420).stl
+│       ├── [211K]  2.5x1.4 Widescreen Monitor (228-2500-1905).stl
+│       ├── [621K]  2x12 Plastic Sheet (228-2500-2710).stl
+│       ├── [1.5M]  2x Pitch Shock Absorber (Weak) (228-2500-1560).stl
+│       ├── [1.6M]  2x Wide, 4x Pitch Diameter Half Puck (228-2500-2024).stl
+│       ├── [363K]  2x Wide Spool (228-2500-421).stl
+│       ├── [972K]  4x Pitch Antenna (228-2500-1906).stl
+│       ├── [876K]  5x Pitch Weighted Disk Housing (228-2500-2248).stl
+│       ├── [819K]  6x12 Plastic Sheet (228-2500-2712).stl
+│       ├── [522K]  6x6 Plastic Sheet (228-2500-2711).stl
+│       ├── [770K]  6x Pitch Cube Face (228-2500-204).stl
+│       ├── [9.0M]  99_Other.3mf
+│       ├── [261K]  Hex Cup Half (228-2500-289).stl
+│       ├── [974K]  Large Turntable Outer Housing (228-2500-195).stl
+│       ├── [332K]  Linear Slide (228-2500-217).stl
+│       ├── [3.6M]  Long Intake Flap (228-2500-242).stl
+│       ├── [3.4M]  Medium Intake Flap (228-2500-241).stl
+│       ├── [381K]  Medium Rocket Engine Nozzle (228-2500-1911).stl
+│       ├── [3.4M]  Short Intake Flap (228-2500-240).stl
+│       ├── [945K]  Small Turntable Outer Housing (228-2500-193).stl
+│       ├── [4.7M]  XL Turntable Outer Housing (228-2500-199).stl
+│       └── [8.8M]  XL Turntable Spider Housing (228-2500-196).stl
+└── [   0]  tree.txt
+
+12 directories, 483 files

@@ -1,0 +1,6 @@
+{
+  "name": "VEX IQ 3D CAD Parts Viewer & Catalog",
+  "description": "Интерактивный 3D-просмотрщик и каталог моделей деталей VEX IQ со скачиванием STL/3MF, поиском по артикулам (SKU), локальным кэшированием IndexedDB и интеграцией с облаком/GitHub LFS.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
