@@ -138,10 +138,12 @@ export const CatalogSidebar: React.FC<CatalogSidebarProps> = ({
       {/* Header */}
       <div className="p-4 border-b border-slate-800/80 bg-slate-950/60">
         <div className="flex items-center justify-between gap-2 mb-3">
-          <div className="flex items-center gap-2">
-            <div className="w-8 h-8 rounded-lg bg-cyan-600 flex items-center justify-center shadow-lg shadow-cyan-900/50">
-              <Box className="w-5 h-5 text-white" />
-            </div>
+          <div className="flex items-center gap-2.5">
+            <img
+              src="./icon.svg"
+              alt="VEX IQ 3D"
+              className="w-8 h-8 rounded-lg shadow-lg shadow-cyan-900/50 shrink-0"
+            />
             <div>
               <h2 className="text-sm font-bold text-white tracking-tight leading-none">
                 VEX IQ 3D CAD

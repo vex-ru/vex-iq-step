@@ -14,6 +14,21 @@ export interface ZipLoadProgress {
   totalCount: number;
 }
 
+async function tryFetchSameOriginZip(url: string): Promise<Response | null> {
+  const filename = url.split('?')[0].split('/').pop()?.toLowerCase();
+  if (filename !== 'vex-iq-models.zip') return null;
+
+  try {
+    const res = await fetch('./vex-iq-models.zip', { cache: 'no-store' });
+    if (!res.ok) return null;
+    const ct = (res.headers.get('content-type') || '').toLowerCase();
+    if (ct.includes('text/html')) return null;
+    return res;
+  } catch {
+    return null;
+  }
+}
+
 /**
  * Resolves a standard GitHub Releases download URL to the CORS-enabled GitHub REST Asset API endpoint.
  */
@@ -58,19 +73,24 @@ export async function loadModelsFromZipUrl(
       totalCount: 0,
     });
 
-    let response: Response | null = null;
-    try {
-      response = await tryFetchViaGitHubApi(url);
-    } catch {
-      response = null;
-    }
+    // 1. Prefer same-origin ./vex-iq-models.zip (deployed on GitHub Pages with zero CORS!)
+    let response: Response | null = await tryFetchSameOriginZip(url);
 
+    // 2. Otherwise try direct URL or GitHub API fallback
     if (!response) {
-      response = await fetch(url);
+      try {
+        response = await fetch(url);
+      } catch {
+        response = await tryFetchViaGitHubApi(url);
+      }
     }
 
-    if (!response.ok) {
-      throw new Error(`Ошибка загрузки архива: ${response.status} ${response.statusText}`);
+    if (!response || !response.ok) {
+      throw new Error(
+        response
+          ? `Ошибка загрузки архива: ${response.status} ${response.statusText}`
+          : 'Не удалось получить доступ к архиву'
+      );
     }
 
     const contentLength = response.headers.get('content-length');
@@ -122,6 +142,12 @@ export async function loadModelsFromZipUrl(
       buffer = await response.arrayBuffer();
     }
 
+    // Verify ZIP signature ('PK') so HTML fallback pages aren't passed to JSZip
+    const sig = new Uint8Array(buffer.slice(0, 2));
+    if (sig[0] !== 0x50 || sig[1] !== 0x4b) {
+      throw new Error('Полученный файл не является ZIP-архивом');
+    }
+
     return await loadModelsFromZipBuffer(buffer, onProgress, 'remote');
   } catch (error: any) {
     const rawMsg = error?.message || 'Не удалось загрузить архив';
@@ -130,7 +156,7 @@ export async function loadModelsFromZipUrl(
       /failed to fetch|networkerror|cors|load failed/i.test(rawMsg);
 
     const friendlyMessage = isCorsOrNetwork
-      ? 'Браузер заблокировал прямой CORS-запрос к GitHub Releases. Нажмите «Скачать ZIP вручную» ниже и откройте его во вкладке «Локальный ZIP» (или используйте нативное Rust-приложение).'
+      ? 'Браузер заблокировал прямой CORS-запрос к внешнему серверу. Нажмите «Скачать ZIP вручную» ниже и откройте его во вкладке «Локальный ZIP».'
       : `Ошибка: ${rawMsg}`;
 
     onProgress({
@@ -206,6 +232,7 @@ export async function loadModelsFromZipBuffer(
           processedCount: i + 1,
           totalCount,
         });
+        await new Promise((r) => setTimeout(r, 0));
       }
     }
 

@@ -72,6 +72,7 @@ foreach ($ShortcutDir in @($DesktopDir, $StartProgramsDir)) {
         $LnkPath = Join-Path $ShortcutDir "VEX IQ 3D CAD Viewer.lnk"
         $Shortcut = $WshShell.CreateShortcut($LnkPath)
         $Shortcut.TargetPath = $ExePath
+        $Shortcut.IconLocation = "$ExePath,0"
         $Shortcut.WorkingDirectory = $InstallDir
         $Shortcut.Description = "VEX IQ 3D CAD Viewer (Native Rust)"
         $Shortcut.Save()

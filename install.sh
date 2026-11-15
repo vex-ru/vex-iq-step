@@ -72,17 +72,25 @@ ln -sf "${INSTALL_DIR}/vex-iq-viewer" "${BIN_LINK_DIR}/vex-iq-viewer"
 
 echo "[3/4] Установка иконки и ярлыка меню приложений..."
 cat > "${ICON_DIR}/vex-iq-viewer.svg" << 'EOF'
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
   <defs>
-    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%" stop-color="#0f172a"/>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0a0f1d"/>
+      <stop offset="100%" stop-color="#0369a1"/>
+    </linearGradient>
+    <linearGradient id="tealGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#38bdf8"/>
       <stop offset="100%" stop-color="#0284c7"/>
     </linearGradient>
   </defs>
-  <rect width="128" height="128" rx="28" fill="url(#bg)"/>
-  <polygon points="64,22 102,44 102,84 64,106 26,84 26,44" fill="none" stroke="#38bdf8" stroke-width="7" stroke-linejoin="round"/>
-  <polyline points="26,44 64,66 102,44" fill="none" stroke="#e0f2fe" stroke-width="6" stroke-linejoin="round"/>
-  <line x1="64" y1="66" x2="64" y2="106" stroke="#38bdf8" stroke-width="6" stroke-linecap="round"/>
+  <rect width="512" height="512" rx="110" fill="url(#bg)"/>
+  <g transform="translate(256, 256) scale(1.6)">
+    <path d="M 0 -70 L 65 -32 L 65 45 L 0 85 L -65 45 L -65 -32 Z" fill="#0f172a" stroke="#0284c7" stroke-width="4"/>
+    <path d="M 0 -70 L 65 -32 L 0 6 L -65 -32 Z" fill="url(#tealGrad)"/>
+    <path d="M 0 6 L 65 -32 L 65 45 L 0 85 Z" fill="#0369a1"/>
+    <path d="M -65 -32 L 0 6 L 0 85 L -65 45 Z" fill="#0284c7"/>
+    <ellipse cx="0" cy="-32" rx="16" ry="8" fill="#0a0f1d" stroke="#38bdf8" stroke-width="3"/>
+  </g>
 </svg>
 EOF
 

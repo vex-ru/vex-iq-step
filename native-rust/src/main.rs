@@ -10,6 +10,15 @@ mod updater;
 
 use eframe::egui;
 
+fn load_window_icon() -> egui::IconData {
+    let rgba = include_bytes!("../assets/app_icon_64.rgba").to_vec();
+    egui::IconData {
+        rgba,
+        width: 64,
+        height: 64,
+    }
+}
+
 fn main() -> eframe::Result<()> {
     updater::cleanup_old_binary_on_startup();
 
@@ -18,6 +27,7 @@ fn main() -> eframe::Result<()> {
             .with_inner_size([1360.0, 860.0])
             .with_min_inner_size([900.0, 600.0])
             .with_drag_and_drop(true)
+            .with_icon(std::sync::Arc::new(load_window_icon()))
             .with_title("VEX IQ 3D CAD Viewer (Native Rust)"),
         depth_buffer: 24,
         ..Default::default()

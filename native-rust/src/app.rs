@@ -104,6 +104,7 @@ pub struct VexCadApp {
     scroll_to_selected: bool,
     updater: UpdateManager,
     notified_update_tag: Option<String>,
+    logo_texture: egui::TextureHandle,
     toast: Option<(String, std::time::Instant)>,
 }
 
@@ -133,6 +134,16 @@ impl VexCadApp {
         favorites.insert("228-2500-009".to_string());
 
         let show_data_modal = storage.indexed_files.is_empty();
+
+        let logo_image = egui::ColorImage::from_rgba_unmultiplied(
+            [64, 64],
+            include_bytes!("../assets/app_icon_64.rgba"),
+        );
+        let logo_texture = cc.egui_ctx.load_texture(
+            "vex_app_logo",
+            logo_image,
+            egui::TextureOptions::LINEAR,
+        );
 
         let mut app = Self {
             categories,
@@ -164,6 +175,7 @@ impl VexCadApp {
             scroll_to_selected: true,
             updater: UpdateManager::default(),
             notified_update_tag: None,
+            logo_texture,
             toast: None,
         };
 
@@ -531,9 +543,21 @@ impl eframe::App for VexCadApp {
 
 impl VexCadApp {
     fn render_sidebar(&mut self, ui: &mut egui::Ui) {
-        ui.add_space(6.0);
+        ui.add_space(4.0);
         ui.horizontal(|ui| {
-            ui.heading(egui::RichText::new("VEX IQ 3D CAD").strong().color(egui::Color32::WHITE));
+            ui.add(
+                egui::Image::new(&self.logo_texture)
+                    .fit_to_exact_size(egui::vec2(28.0, 28.0))
+                    .rounding(6.0),
+            );
+            ui.vertical(|ui| {
+                ui.heading(egui::RichText::new("VEX IQ 3D CAD").strong().color(egui::Color32::WHITE));
+                ui.label(
+                    egui::RichText::new("Нативный Rust + OpenGL движок")
+                        .size(10.5)
+                        .color(egui::Color32::from_rgb(148, 163, 184)),
+                );
+            });
             ui.with_layout(egui::Layout::right_to_left(egui::Align::Center), |ui| {
                 ui.label(
                     egui::RichText::new(format!("{} шт.", self.parts.len()))
@@ -543,11 +567,6 @@ impl VexCadApp {
                 );
             });
         });
-        ui.label(
-            egui::RichText::new("Нативный Rust + OpenGL движок")
-                .size(11.0)
-                .color(egui::Color32::from_rgb(148, 163, 184)),
-        );
         ui.add_space(6.0);
 
         // Search input

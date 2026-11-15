@@ -34,6 +34,11 @@ jobs:
       - name: Build Web Application
         run: npm run build
 
+      - name: Fetch vex-iq-models.zip into dist for same-origin CORS-free browser loading
+        run: |
+          curl -fL --retry 3 "https://github.com/vex-ru/vex-iq-step/releases/download/zip/vex-iq-models.zip" -o dist/vex-iq-models.zip
+          ls -lh dist/vex-iq-models.zip
+
       - name: Upload artifact for GitHub Pages
         uses: actions/upload-pages-artifact@v3
         with:
