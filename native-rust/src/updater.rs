@@ -5,7 +5,7 @@ use std::path::PathBuf;
 use std::sync::{Arc, Mutex};
 
 pub const CURRENT_VERSION: &str = env!("CARGO_PKG_VERSION");
-const GITHUB_LATEST_API: &str = "https://api.github.com/repos/vex-ru/vex-iq-step/releases/latest";
+const GITHUB_RELEASES_API: &str = "https://api.github.com/repos/vex-ru/vex-iq-step/releases?per_page=15";
 
 #[cfg(target_os = "windows")]
 const EXPECTED_ASSET_NAME: &str = "VEX-IQ-Viewer-Windows-x64-Portable.zip";
@@ -96,7 +96,7 @@ impl UpdateManager {
         let state = Arc::clone(&self.state);
         std::thread::spawn(move || {
             let res: Result<Option<ReleaseUpdateInfo>, String> = (|| {
-                let resp = ureq::get(GITHUB_LATEST_API)
+                let resp = ureq::get(GITHUB_RELEASES_API)
                     .set("User-Agent", "vex-iq-viewer")
                     .set("Accept", "application/vnd.github+json")
                     .call()
@@ -105,38 +105,50 @@ impl UpdateManager {
                 let body = resp
                     .into_string()
                     .map_err(|e| format!("Ошибка чтения ответа GitHub: {e}"))?;
-                let json: serde_json::Value = serde_json::from_str(&body)
+                let releases: Vec<serde_json::Value> = serde_json::from_str(&body)
                     .map_err(|e| format!("Некорректный JSON от GitHub: {e}"))?;
 
-                let tag_name = json["tag_name"]
-                    .as_str()
-                    .ok_or_else(|| "В релизе отсутствует tag_name".to_string())?
-                    .to_string();
-
-                let remote_ver = parse_semver(&tag_name)
-                    .ok_or_else(|| format!("Неверный формат версии: {tag_name}"))?;
                 let local_ver = parse_semver(CURRENT_VERSION).unwrap_or((1, 0, 0));
+                let mut best: Option<((u64, u64, u64), ReleaseUpdateInfo)> = None;
 
-                if remote_ver <= local_ver {
-                    return Ok(None);
+                for rel in &releases {
+                    if rel["draft"].as_bool() == Some(true) || rel["prerelease"].as_bool() == Some(true) {
+                        continue;
+                    }
+                    let Some(tag_name) = rel["tag_name"].as_str() else {
+                        continue;
+                    };
+                    let Some(remote_ver) = parse_semver(tag_name) else {
+                        // Skip non-version releases such as the static 'zip' models release
+                        continue;
+                    };
+                    if remote_ver <= local_ver {
+                        continue;
+                    }
+                    let Some(assets) = rel["assets"].as_array() else {
+                        continue;
+                    };
+                    let Some(download_url) = assets
+                        .iter()
+                        .find(|a| a["name"].as_str() == Some(EXPECTED_ASSET_NAME))
+                        .and_then(|a| a["browser_download_url"].as_str())
+                    else {
+                        continue;
+                    };
+
+                    if best.as_ref().map(|(v, _)| remote_ver > *v).unwrap_or(true) {
+                        best = Some((
+                            remote_ver,
+                            ReleaseUpdateInfo {
+                                version: format!("{}.{}.{}", remote_ver.0, remote_ver.1, remote_ver.2),
+                                tag_name: tag_name.to_string(),
+                                download_url: download_url.to_string(),
+                            },
+                        ));
+                    }
                 }
 
-                let assets = json["assets"]
-                    .as_array()
-                    .ok_or_else(|| "В релизе нет файлов (assets)".to_string())?;
-
-                let download_url = assets
-                    .iter()
-                    .find(|a| a["name"].as_str() == Some(EXPECTED_ASSET_NAME))
-                    .and_then(|a| a["browser_download_url"].as_str())
-                    .map(|s| s.to_string())
-                    .ok_or_else(|| format!("Не найден ассет {EXPECTED_ASSET_NAME} в релизе {tag_name}"))?;
-
-                Ok(Some(ReleaseUpdateInfo {
-                    version: format!("{}.{}.{}", remote_ver.0, remote_ver.1, remote_ver.2),
-                    tag_name,
-                    download_url,
-                }))
+                Ok(best.map(|(_, info)| info))
             })();
 
             if let Ok(mut st) = state.lock() {

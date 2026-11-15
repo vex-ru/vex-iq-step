@@ -15,7 +15,7 @@ use std::sync::atomic::Ordering;
 use std::sync::{Arc, Mutex};
 
 const DEFAULT_ZIP_URL: &str =
-    "https://github.com/vex-ru/vex-iq-step/releases/download/v1.0.0/vex-iq-models.zip";
+    "https://github.com/vex-ru/vex-iq-step/releases/download/zip/vex-iq-models.zip";
 
 struct ColorSwatch {
     name: &'static str,
@@ -1124,7 +1124,7 @@ impl VexCadApp {
                         ui.add(
                             egui::TextEdit::singleline(&mut self.zip_url)
                                 .desired_width(ui.available_width())
-                                .hint_text("https://github.com/.../vex-iq-models.zip"),
+                                .hint_text(DEFAULT_ZIP_URL),
                         );
                         ui.add_space(6.0);
                         ui.horizontal(|ui| {

@@ -16,13 +16,15 @@ $DownloadUrl = "https://github.com/$Repo/releases/latest/download/$AssetName"
 $VersionTag = "latest"
 
 try {
-    $Release = Invoke-RestMethod -Uri "https://api.github.com/repos/$Repo/releases/latest" -Headers @{ "User-Agent" = "vex-iq-installer" }
-    if ($Release.tag_name) {
-        $VersionTag = $Release.tag_name
-    }
-    $MatchedAsset = $Release.assets | Where-Object { $_.name -eq $AssetName } | Select-Object -First 1
-    if ($MatchedAsset -and $MatchedAsset.browser_download_url) {
-        $DownloadUrl = $MatchedAsset.browser_download_url
+    $Releases = Invoke-RestMethod -Uri "https://api.github.com/repos/$Repo/releases?per_page=15" -Headers @{ "User-Agent" = "vex-iq-installer" }
+    foreach ($Rel in $Releases) {
+        if ($Rel.draft -or $Rel.prerelease) { continue }
+        $MatchedAsset = $Rel.assets | Where-Object { $_.name -eq $AssetName } | Select-Object -First 1
+        if ($MatchedAsset -and $MatchedAsset.browser_download_url) {
+            $VersionTag = $Rel.tag_name
+            $DownloadUrl = $MatchedAsset.browser_download_url
+            break
+        }
     }
 } catch {
     Write-Host "[!] GitHub API lookup skipped, using direct latest release URL..." -ForegroundColor Yellow

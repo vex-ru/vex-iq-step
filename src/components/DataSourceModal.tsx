@@ -32,7 +32,7 @@ export interface DataSourceModalProps {
 }
 
 const DEFAULT_ZIP_URL =
-  'https://github.com/vkontakte258/vex-iq-models/releases/download/v1.0.0/vex-iq-models.zip';
+  'https://github.com/vex-ru/vex-iq-step/releases/download/zip/vex-iq-models.zip';
 const PREVENT_STARTUP_MODAL_KEY = 'vex_iq_hide_startup_modal';
 
 export const DataSourceModal: React.FC<DataSourceModalProps> = ({
@@ -42,7 +42,15 @@ export const DataSourceModal: React.FC<DataSourceModalProps> = ({
   cachedCount,
 }) => {
   const [zipUrl, setZipUrl] = useState<string>(() => {
-    return localStorage.getItem('vex_iq_custom_zip_url') || DEFAULT_ZIP_URL;
+    const saved = localStorage.getItem('vex_iq_custom_zip_url');
+    if (
+      !saved ||
+      saved.includes('vkontakte258/vex-iq-models') ||
+      saved.endsWith('/releases/download/v1.0.0/vex-iq-models.zip')
+    ) {
+      return DEFAULT_ZIP_URL;
+    }
+    return saved;
   });
   const [loadingMode, setLoadingMode] = useState<'idle' | 'url' | 'local_zip' | 'local_folder'>('idle');
   const [progress, setProgress] = useState<ZipLoadProgress | null>(null);
@@ -246,7 +254,7 @@ export const DataSourceModal: React.FC<DataSourceModalProps> = ({
                     type="url"
                     value={zipUrl}
                     onChange={(e) => setZipUrl(e.target.value)}
-                    placeholder="https://github.com/owner/repo/releases/download/v1.0.0/vex-iq-models.zip"
+                    placeholder={DEFAULT_ZIP_URL}
                     disabled={loadingMode !== 'idle'}
                     className="w-full px-3 py-2.5 bg-slate-950 border border-slate-700 rounded-xl text-white font-mono text-xs focus:outline-none focus:border-cyan-500"
                   />
@@ -260,7 +268,7 @@ export const DataSourceModal: React.FC<DataSourceModalProps> = ({
                       onClick={() => setZipUrl(DEFAULT_ZIP_URL)}
                       className="px-2 py-0.5 rounded text-[10px] bg-slate-800 hover:bg-slate-700 text-cyan-400 border border-slate-700 cursor-pointer"
                     >
-                      По умолчанию (v1.0.0)
+                      По умолчанию (vex-ru/vex-iq-step)
                     </button>
                   </div>
 

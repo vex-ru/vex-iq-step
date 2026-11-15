@@ -107,7 +107,7 @@ wget -qO- https://raw.githubusercontent.com/vex-ru/vex-iq-step/main/install.sh |
 
 Чтобы не хранить гигабайты бинарных `.stl` внутри Git-истории, поддерживается 3 способа подключения библиотеки:
 
-1. **Автозагрузка ZIP из GitHub Releases** — при первом запуске укажите ссылку на архив (по умолчанию уже подставлена ссылка на `vex-iq-models.zip` из релиза `vex-ru/vex-iq-step`). Программа скачает и распакует все STL-файлы в локальный кэш.
+1. **Автозагрузка ZIP из GitHub Releases** — по умолчанию во всех версиях (Windows, Linux, Web) уже прописана постоянная ссылка [`https://github.com/vex-ru/vex-iq-step/releases/download/zip/vex-iq-models.zip`](https://github.com/vex-ru/vex-iq-step/releases/download/zip/vex-iq-models.zip). Архив загружен один раз в статичный релиз `zip` и больше не пересобирается при обновлении программы.
 2. **Локальная папка `stl/`** — если положить папку `stl/` рядом с `vex-iq-viewer` или указать её через **«📁 Папка stl»**, модели подключаются мгновенно без копирования.
 3. **Локальный `.zip` или отдельные `.stl`** — перетащите архив/файлы в окно программы или выберите через диалог открытия.
 
@@ -140,7 +140,7 @@ wget -qO- https://raw.githubusercontent.com/vex-ru/vex-iq-step/main/install.sh |
 vex-iq-step/
 ├── .github/workflows/
 │   ├── deploy.yml              # Автодеплой Web PWA на GitHub Pages
-│   └── desktop.yml             # Сборка Rust-бинарников (Linux/Windows), Setup.exe и vex-iq-models.zip
+│   └── desktop.yml             # Сборка Rust-бинарников (Linux/Windows) и Setup.exe
 ├── native-rust/                # Нативное приложение на Rust (eframe + glow + glam)
 │   ├── assets/                 # Встроенный JSON-каталог (476 деталей, 10 категорий)
 │   ├── installer/              # Скрипт Inno Setup (vex-iq-viewer.iss)
@@ -209,8 +209,7 @@ git push origin v1.0.1
 Workflow `/.github/workflows/desktop.yml` автоматически:
 1. Подставит номер версии из тега в `native-rust/Cargo.toml` и `vex-iq-viewer.iss`.
 2. Соберёт `VEX-IQ-Viewer-Linux-x64-Portable.tar.gz`, `VEX-IQ-Viewer-Windows-x64-Portable.zip` и `VEX-IQ-Viewer-Windows-x64-Setup.exe`.
-3. Упакует `vex-iq-models.zip` (если в репозитории присутствует папка `stl/`).
-4. Опубликует все файлы в **GitHub Releases**, откуда их сразу увидят установщики и встроенное автообновление.
+3. Опубликует все файлы в **GitHub Releases**, откуда их сразу увидят установщики и встроенное автообновление (библиотека моделей `vex-iq-models.zip` при этом остаётся нетронутой в постоянном релизе `zip`).
 
 ---
 

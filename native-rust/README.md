@@ -43,5 +43,8 @@ cd native-rust
 ## Автоматическая сборка готовых файлов через GitHub Actions
 При отправке тега (например `git tag v1.0.0 && git push --tags`) или ручном запуске **Actions -> Build Native Rust App** в GitHub автоматически собираются и публикуются в **Releases**:
 1. `VEX-IQ-Viewer-Windows-x64-Portable.zip` (готовый `.exe` для Windows)
-2. `VEX-IQ-Viewer-Linux-x64-Portable.tar.gz` (готовый бинарник для Linux)
-3. `vex-iq-models.zip` (архив STL-моделей, если папка `stl/` есть в репозитории)
+2. `VEX-IQ-Viewer-Windows-x64-Setup.exe` (графический установщик Windows)
+3. `VEX-IQ-Viewer-Linux-x64-Portable.tar.gz` (готовый бинарник для Linux)
+
+Архив 3D-моделей `vex-iq-models.zip` размещается один раз в постоянном релизе `zip`:  
+`https://github.com/vex-ru/vex-iq-step/releases/download/zip/vex-iq-models.zip`

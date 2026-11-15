@@ -40,11 +40,12 @@ download_file() {
 DOWNLOAD_URL="https://github.com/${REPO}/releases/latest/download/${ASSET_NAME}"
 TAG_NAME="latest"
 
-if JSON="$(fetch_stdout "https://api.github.com/repos/${REPO}/releases/latest" 2>/dev/null || true)"; then
-  FOUND_TAG="$(printf '%s\n' "$JSON" | sed -n 's/.*"tag_name":[[:space:]]*"\([^"]*\)".*/\1/p' | head -n 1)"
+if JSON="$(fetch_stdout "https://api.github.com/repos/${REPO}/releases?per_page=15" 2>/dev/null || true)"; then
   FOUND_URL="$(printf '%s\n' "$JSON" | grep -o "https://[^\"]*${ASSET_NAME}" | head -n 1 || true)"
-  if [ -n "$FOUND_TAG" ]; then TAG_NAME="$FOUND_TAG"; fi
-  if [ -n "$FOUND_URL" ]; then DOWNLOAD_URL="$FOUND_URL"; fi
+  if [ -n "$FOUND_URL" ]; then
+    DOWNLOAD_URL="$FOUND_URL"
+    TAG_NAME="$(printf '%s\n' "$FOUND_URL" | sed -n 's|.*/releases/download/\([^/]*\)/.*|\1|p')"
+  fi
 fi
 
 TMP_DIR="$(mktemp -d)"
