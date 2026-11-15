@@ -5,6 +5,12 @@ on:
     tags:
       - 'v*'
   workflow_dispatch:
+    inputs:
+      release_tag:
+        description: 'GitHub Release tag to create/update (e.g. v1.0.0)'
+        required: true
+        default: 'v1.0.0'
+        type: string
 
 permissions:
   contents: write
@@ -29,13 +35,12 @@ jobs:
             echo "stl directory not found; skipping models zip."
           fi
 
-      - name: Upload models ZIP to GitHub Release
-        uses: softprops/action-gh-release@v2
-        if: startsWith(github.ref, 'refs/tags/') && hashFiles('vex-iq-models.zip') != ''
+      - name: Upload models ZIP Artifact
+        uses: actions/upload-artifact@v4
         with:
-          files: vex-iq-models.zip
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          name: vex-iq-models-zip
+          path: vex-iq-models.zip
+          if-no-files-found: ignore
 
   # 2. Build Native Rust Binary for Linux (Portable .tar.gz)
   build-rust-linux:
@@ -58,12 +63,15 @@ jobs:
         with:
           workspaces: "native-rust -> target"
 
-      - name: Sync version from Git tag into Cargo.toml
-        if: startsWith(github.ref, 'refs/tags/v')
+      - name: Sync version into Cargo.toml
         working-directory: native-rust
+        env:
+          RAW_TAG: ${{ github.event_name == 'workflow_dispatch' && inputs.release_tag || github.ref_name }}
         run: |
-          TAG_VER="${GITHUB_REF_NAME#v}"
-          sed -i "s/^version = \".*\"/version = \"${TAG_VER}\"/" Cargo.toml
+          TAG_VER="${RAW_TAG#v}"
+          if echo "$TAG_VER" | grep -qE '^[0-9]+\.[0-9]+\.[0-9]+'; then
+            sed -i "s/^version = \".*\"/version = \"${TAG_VER}\"/" Cargo.toml
+          fi
           grep '^version =' Cargo.toml
 
       - name: Build release binary
@@ -89,14 +97,6 @@ jobs:
           name: VEX-IQ-Viewer-Linux-x64-Portable
           path: native-rust/dist/VEX-IQ-Viewer-Linux-x64-Portable.tar.gz
 
-      - name: Publish Linux build to GitHub Release
-        uses: softprops/action-gh-release@v2
-        if: startsWith(github.ref, 'refs/tags/')
-        with:
-          files: native-rust/dist/VEX-IQ-Viewer-Linux-x64-Portable.tar.gz
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
   # 3. Build Native Rust Binary + Setup.exe for Windows
   build-rust-windows:
     name: Build Native Rust (Windows x64 Portable + Setup.exe)
@@ -113,13 +113,16 @@ jobs:
         with:
           workspaces: "native-rust -> target"
 
-      - name: Sync version from Git tag into Cargo.toml
-        if: startsWith(github.ref, 'refs/tags/v')
+      - name: Sync version into Cargo.toml
         working-directory: native-rust
         shell: pwsh
+        env:
+          RAW_TAG: ${{ github.event_name == 'workflow_dispatch' && inputs.release_tag || github.ref_name }}
         run: |
-          $tagVer = $env:GITHUB_REF_NAME -replace '^v', ''
-          (Get-Content Cargo.toml) -replace '^version = ".*"', "version = `"$tagVer`"" | Set-Content Cargo.toml
+          $tagVer = $env:RAW_TAG -replace '^v', ''
+          if ($tagVer -match '^\d+\.\d+\.\d+') {
+            (Get-Content Cargo.toml) -replace '^version = ".*"', "version = `"$tagVer`"" | Set-Content Cargo.toml
+          }
           Select-String -Path Cargo.toml -Pattern '^version ='
 
       - name: Build release binary
@@ -138,12 +141,14 @@ jobs:
       - name: Build Windows GUI Installer (Inno Setup)
         working-directory: native-rust
         shell: pwsh
+        env:
+          RAW_TAG: ${{ github.event_name == 'workflow_dispatch' && inputs.release_tag || github.ref_name }}
         run: |
           $iscc = "C:\Program Files (x86)\Inno Setup 6\ISCC.exe"
           if (-not (Test-Path $iscc)) {
             choco install innosetup -y --no-progress
           }
-          $appVer = if ($env:GITHUB_REF_NAME -match '^v(.+)$') { $matches[1] } else { "1.0.0" }
+          $appVer = if ($env:RAW_TAG -match '^v?(\d+\.\d+\.\d+)') { $matches[1] } else { "1.0.0" }
           & $iscc "/DAppVersion=$appVer" "installer\vex-iq-viewer.iss"
 
       - name: Upload Windows Artifacts
@@ -154,12 +159,28 @@ jobs:
             native-rust/dist/VEX-IQ-Viewer-Windows-x64-Portable.zip
             native-rust/dist/VEX-IQ-Viewer-Windows-x64-Setup.exe
 
-      - name: Publish Windows builds to GitHub Release
-        uses: softprops/action-gh-release@v2
-        if: startsWith(github.ref, 'refs/tags/')
+  # 4. Single atomic GitHub Release publish job (works on BOTH git tag push AND manual Run workflow)
+  publish-release:
+    name: Publish GitHub Release
+    runs-on: ubuntu-latest
+    needs: [package-models-zip, build-rust-linux, build-rust-windows]
+    steps:
+      - name: Download all built artifacts
+        uses: actions/download-artifact@v4
         with:
-          files: |
-            native-rust/dist/VEX-IQ-Viewer-Windows-x64-Portable.zip
-            native-rust/dist/VEX-IQ-Viewer-Windows-x64-Setup.exe
+          path: release-assets
+          merge-multiple: true
+
+      - name: List assets to publish
+        run: ls -lh release-assets
+
+      - name: Create / Update GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ github.event_name == 'workflow_dispatch' && inputs.release_tag || github.ref_name }}
+          name: VEX IQ 3D CAD Viewer ${{ github.event_name == 'workflow_dispatch' && inputs.release_tag || github.ref_name }}
+          generate_release_notes: true
+          make_latest: true
+          files: release-assets/*
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
