@@ -140,12 +140,14 @@ export default function App() {
   // Keyboard navigation shortcuts
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.target instanceof HTMLInputElement || e.target instanceof HTMLTextAreaElement) {
+      if (e.target instanceof HTMLInputElement || e.target instanceof HTMLTextAreaElement || e.target instanceof HTMLSelectElement) {
         return;
       }
-      if (e.key === 'ArrowRight' || e.key === ']') {
+      if (e.key === 'ArrowRight' || e.key === 'ArrowDown' || e.key === ']') {
+        e.preventDefault();
         handleNextPart();
-      } else if (e.key === 'ArrowLeft' || e.key === '[') {
+      } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp' || e.key === '[') {
+        e.preventDefault();
         handlePrevPart();
       } else if (e.key === 'f' || e.key === 'F') {
         handleToggleFavorite(selectedPart.sku);

@@ -1,0 +1,72 @@
+[
+  {
+    "id": "01_Beams",
+    "name": "Балки (Beams)",
+    "count": 78,
+    "description": "Несущие конструкционные балки 1xN и 2xN с шагом 1/2 дюйма",
+    "iconName": "Layers"
+  },
+  {
+    "id": "02_Plates_and_Panels",
+    "name": "Пластины и панели (Plates & Panels)",
+    "count": 86,
+    "description": "Плоские и изогнутые пластины, защитные щитки и обтекатели",
+    "iconName": "Grid"
+  },
+  {
+    "id": "03_Connectors_and_Corners",
+    "name": "Уголки и коннекторы (Connectors)",
+    "count": 32,
+    "description": "Угловые фиксаторы, тройники и монтажные коннекторы",
+    "iconName": "Maximize2"
+  },
+  {
+    "id": "04_Gears_and_Sprockets",
+    "name": "Шестерни и звёздочки (Gears)",
+    "count": 42,
+    "description": "Зубчатые колёса, конические и коронные передачи, рейки",
+    "iconName": "Cog"
+  },
+  {
+    "id": "05_Shafts_Standoffs_and_Spacers",
+    "name": "Оси и стойки (Shafts & Standoffs)",
+    "count": 80,
+    "description": "Приводные оси, дистанционные стойки и проставочные втулки",
+    "iconName": "ChevronsLeftRight"
+  },
+  {
+    "id": "06_Pins",
+    "name": "Штифты и пины (Pins & Fasteners)",
+    "count": 19,
+    "description": "Соединительные пины 1x1, 1x2, 2x2 и гладкие штифты",
+    "iconName": "Pin"
+  },
+  {
+    "id": "07_Wheels_Tires_and_Pulleys",
+    "name": "Колёса, шины и шкивы (Wheels & Pulleys)",
+    "count": 35,
+    "description": "Внедорожные и гладкие шины, ступицы, шкивы и маховики",
+    "iconName": "Disc"
+  },
+  {
+    "id": "08_Motors_and_Power",
+    "name": "Моторы и приводы (Motors & Power)",
+    "count": 11,
+    "description": "Крепления моторов, пропеллеры, захваты и импеллеры",
+    "iconName": "Zap"
+  },
+  {
+    "id": "09_Specialty_Mechanisms_and_Misc",
+    "name": "Специальные детали (Mechanisms)",
+    "count": 46,
+    "description": "Ремни, тросы, ковши, кулачковые механизмы и клешни",
+    "iconName": "Wrench"
+  },
+  {
+    "id": "99_Other",
+    "name": "Прочее (Other Components)",
+    "count": 22,
+    "description": "Поворотные основания, гибкие листы и редкие узлы",
+    "iconName": "Box"
+  }
+]

@@ -6,3 +6,17 @@ coverage/
 *.log
 .env*
 !.env.example
+
+# Compiled binaries, installers & archives
+*.exe
+*.zip
+*.tar.gz
+*.msi
+*.dmg
+*.AppImage
+*.pdb
+
+# Native Rust build artifacts & local cache
+native-rust/target/
+native-rust/dist/
+vex_cache/

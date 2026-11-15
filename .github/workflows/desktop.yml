@@ -1,4 +1,4 @@
-name: Build Cross-Platform Desktop Installers & Release Assets
+name: Build Native Rust App (Windows & Linux Portable)
 
 on:
   push:
@@ -10,7 +10,7 @@ permissions:
   contents: write
 
 jobs:
-  # 1. Package models into vex-iq-models.zip and upload to GitHub Release
+  # 1. Package STL models into vex-iq-models.zip (if stl/ directory exists)
   package-models-zip:
     name: Package 3D STL Models ZIP
     runs-on: ubuntu-latest
@@ -22,82 +22,144 @@ jobs:
 
       - name: Create ZIP archive of all 3D STL models
         run: |
-          echo "Packaging models from stl/ directory..."
           if [ -d "stl" ]; then
             zip -r vex-iq-models.zip stl/
-          else
-            echo "stl directory not found, checking subdirectories..."
-            find . -type f \( -name "*.stl" -o -name "*.3mf" -o -name "*.step" \) | zip -@ vex-iq-models.zip || echo "No models to zip"
-          fi
-          if [ -f "vex-iq-models.zip" ]; then
             ls -lh vex-iq-models.zip
+          else
+            echo "stl directory not found; skipping models zip."
           fi
 
       - name: Upload models ZIP to GitHub Release
         uses: softprops/action-gh-release@v2
-        if: startsWith(github.ref, 'refs/tags/')
+        if: startsWith(github.ref, 'refs/tags/') && hashFiles('vex-iq-models.zip') != ''
         with:
           files: vex-iq-models.zip
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-  # 2. Build Desktop Executables across Windows, macOS and Linux
-  build-desktop-app:
-    name: Build Desktop Installer (${{ matrix.os }})
-    needs: package-models-zip
-    strategy:
-      fail-fast: false
-      matrix:
-        include:
-          - os: windows-latest
-            platform: win
-            targets: "nsis,msi"
-            artifact_name: "Windows Installer (.exe / .msi)"
-          - os: macos-latest
-            platform: mac
-            targets: "dmg"
-            artifact_name: "macOS Installer (.dmg)"
-          - os: ubuntu-latest
-            platform: linux
-            targets: "AppImage,deb"
-            artifact_name: "Linux Executable (.AppImage / .deb)"
-    runs-on: ${{ matrix.os }}
-
+  # 2. Build Native Rust Binary for Linux (Portable .tar.gz)
+  build-rust-linux:
+    name: Build Native Rust (Linux x64 Portable)
+    runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
+      - name: Checkout repository
         uses: actions/checkout@v4
-        with:
-          lfs: true
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: 20
-
-      - name: Install dependencies
-        run: npm install --legacy-peer-deps
-
-      - name: Build Web Application
-        run: npm run build
-
-      - name: Install Electron & electron-builder
-        run: npm install -D electron@latest electron-builder@latest --legacy-peer-deps
-
-      - name: Package Desktop App for ${{ matrix.platform }}
+      - name: Install Linux GUI/OpenGL dev packages
         run: |
-          npx electron-builder --${{ matrix.platform }} --publish never
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          sudo apt-get update
+          sudo apt-get install -y build-essential pkg-config libgtk-3-dev libgl1-mesa-dev libxkbcommon-dev libxcb-render0-dev libxcb-shape0-dev libxcb-xfixes0-dev
 
-      - name: Upload Installers to GitHub Release
+      - name: Setup Rust toolchain
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Cache Cargo dependencies
+        uses: Swatinem/rust-cache@v2
+        with:
+          workspaces: "native-rust -> target"
+
+      - name: Sync version from Git tag into Cargo.toml
+        if: startsWith(github.ref, 'refs/tags/v')
+        working-directory: native-rust
+        run: |
+          TAG_VER="${GITHUB_REF_NAME#v}"
+          sed -i "s/^version = \".*\"/version = \"${TAG_VER}\"/" Cargo.toml
+          grep '^version =' Cargo.toml
+
+      - name: Build release binary
+        working-directory: native-rust
+        run: cargo build --release
+
+      - name: Package portable Linux archive
+        working-directory: native-rust
+        run: |
+          mkdir -p dist/VEX-IQ-Viewer-Linux-x64
+          cp target/release/vex-iq-viewer dist/VEX-IQ-Viewer-Linux-x64/vex-iq-viewer
+          chmod +x dist/VEX-IQ-Viewer-Linux-x64/vex-iq-viewer
+          cat > dist/VEX-IQ-Viewer-Linux-x64/README.txt << 'EOF'
+          VEX IQ 3D CAD Viewer (Native Rust — Linux Portable)
+          Запуск: ./vex-iq-viewer
+          Установка в систему: wget -qO- https://raw.githubusercontent.com/vex-ru/vex-iq-step/main/install.sh | bash
+          EOF
+          tar -czf dist/VEX-IQ-Viewer-Linux-x64-Portable.tar.gz -C dist VEX-IQ-Viewer-Linux-x64
+
+      - name: Upload Linux Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: VEX-IQ-Viewer-Linux-x64-Portable
+          path: native-rust/dist/VEX-IQ-Viewer-Linux-x64-Portable.tar.gz
+
+      - name: Publish Linux build to GitHub Release
+        uses: softprops/action-gh-release@v2
+        if: startsWith(github.ref, 'refs/tags/')
+        with:
+          files: native-rust/dist/VEX-IQ-Viewer-Linux-x64-Portable.tar.gz
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  # 3. Build Native Rust Binary + Setup.exe for Windows
+  build-rust-windows:
+    name: Build Native Rust (Windows x64 Portable + Setup.exe)
+    runs-on: windows-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Rust toolchain
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Cache Cargo dependencies
+        uses: Swatinem/rust-cache@v2
+        with:
+          workspaces: "native-rust -> target"
+
+      - name: Sync version from Git tag into Cargo.toml
+        if: startsWith(github.ref, 'refs/tags/v')
+        working-directory: native-rust
+        shell: pwsh
+        run: |
+          $tagVer = $env:GITHUB_REF_NAME -replace '^v', ''
+          (Get-Content Cargo.toml) -replace '^version = ".*"', "version = `"$tagVer`"" | Set-Content Cargo.toml
+          Select-String -Path Cargo.toml -Pattern '^version ='
+
+      - name: Build release binary
+        working-directory: native-rust
+        run: cargo build --release
+
+      - name: Package portable Windows ZIP
+        working-directory: native-rust
+        shell: pwsh
+        run: |
+          New-Item -ItemType Directory -Force -Path "dist\VEX-IQ-Viewer-Windows-x64" | Out-Null
+          Copy-Item "target\release\vex-iq-viewer.exe" "dist\VEX-IQ-Viewer-Windows-x64\vex-iq-viewer.exe"
+          "VEX IQ 3D CAD Viewer (Native Rust - Windows Portable)`r`nПросто запустите vex-iq-viewer.exe" | Out-File -Encoding UTF8 "dist\VEX-IQ-Viewer-Windows-x64\README.txt"
+          Compress-Archive -Path "dist\VEX-IQ-Viewer-Windows-x64\*" -DestinationPath "dist\VEX-IQ-Viewer-Windows-x64-Portable.zip" -Force
+
+      - name: Build Windows GUI Installer (Inno Setup)
+        working-directory: native-rust
+        shell: pwsh
+        run: |
+          $iscc = "C:\Program Files (x86)\Inno Setup 6\ISCC.exe"
+          if (-not (Test-Path $iscc)) {
+            choco install innosetup -y --no-progress
+          }
+          $appVer = if ($env:GITHUB_REF_NAME -match '^v(.+)$') { $matches[1] } else { "1.0.0" }
+          & $iscc "/DAppVersion=$appVer" "installer\vex-iq-viewer.iss"
+
+      - name: Upload Windows Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: VEX-IQ-Viewer-Windows-x64
+          path: |
+            native-rust/dist/VEX-IQ-Viewer-Windows-x64-Portable.zip
+            native-rust/dist/VEX-IQ-Viewer-Windows-x64-Setup.exe
+
+      - name: Publish Windows builds to GitHub Release
         uses: softprops/action-gh-release@v2
         if: startsWith(github.ref, 'refs/tags/')
         with:
           files: |
-            dist_electron/*.exe
-            dist_electron/*.msi
-            dist_electron/*.dmg
-            dist_electron/*.AppImage
-            dist_electron/*.deb
+            native-rust/dist/VEX-IQ-Viewer-Windows-x64-Portable.zip
+            native-rust/dist/VEX-IQ-Viewer-Windows-x64-Setup.exe
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
