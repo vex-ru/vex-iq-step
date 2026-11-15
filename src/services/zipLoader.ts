@@ -15,6 +15,34 @@ export interface ZipLoadProgress {
 }
 
 /**
+ * Resolves a standard GitHub Releases download URL to the CORS-enabled GitHub REST Asset API endpoint.
+ */
+async function tryFetchViaGitHubApi(url: string): Promise<Response | null> {
+  const match = url.match(
+    /^https?:\/\/github\.com\/([^/]+)\/([^/]+)\/releases\/download\/([^/]+)\/(.+)$/i
+  );
+  if (!match) return null;
+
+  const [, owner, repo, rawTag, rawFilename] = match;
+  const filename = decodeURIComponent(rawFilename);
+  const tagApiUrl = `https://api.github.com/repos/${owner}/${repo}/releases/tags/${encodeURIComponent(rawTag)}`;
+
+  const relResp = await fetch(tagApiUrl, {
+    headers: { Accept: 'application/vnd.github+json' },
+  });
+  if (!relResp.ok) return null;
+
+  const releaseData = await relResp.json();
+  const assets: Array<{ id: number; name: string }> = releaseData?.assets || [];
+  const asset = assets.find((a) => a.name.toLowerCase() === filename.toLowerCase());
+  if (!asset) return null;
+
+  return await fetch(`https://api.github.com/repos/${owner}/${repo}/releases/assets/${asset.id}`, {
+    headers: { Accept: 'application/octet-stream' },
+  });
+}
+
+/**
  * Downloads a ZIP file from a URL with progress reporting and extracts all STL/3MF models
  */
 export async function loadModelsFromZipUrl(
@@ -30,7 +58,17 @@ export async function loadModelsFromZipUrl(
       totalCount: 0,
     });
 
-    const response = await fetch(url);
+    let response: Response | null = null;
+    try {
+      response = await tryFetchViaGitHubApi(url);
+    } catch {
+      response = null;
+    }
+
+    if (!response) {
+      response = await fetch(url);
+    }
+
     if (!response.ok) {
       throw new Error(`Ошибка загрузки архива: ${response.status} ${response.statusText}`);
     }
@@ -86,10 +124,19 @@ export async function loadModelsFromZipUrl(
 
     return await loadModelsFromZipBuffer(buffer, onProgress, 'remote');
   } catch (error: any) {
+    const rawMsg = error?.message || 'Не удалось загрузить архив';
+    const isCorsOrNetwork =
+      error instanceof TypeError ||
+      /failed to fetch|networkerror|cors|load failed/i.test(rawMsg);
+
+    const friendlyMessage = isCorsOrNetwork
+      ? 'Браузер заблокировал прямой CORS-запрос к GitHub Releases. Нажмите «Скачать ZIP вручную» ниже и откройте его во вкладке «Локальный ZIP» (или используйте нативное Rust-приложение).'
+      : `Ошибка: ${rawMsg}`;
+
     onProgress({
       stage: 'error',
       percent: 0,
-      message: `Ошибка: ${error.message || 'Не удалось загрузить архив'}`,
+      message: friendlyMessage,
       processedCount: 0,
       totalCount: 0,
     });

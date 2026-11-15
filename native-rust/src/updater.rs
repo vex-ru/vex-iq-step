@@ -96,7 +96,9 @@ impl UpdateManager {
         let state = Arc::clone(&self.state);
         std::thread::spawn(move || {
             let res: Result<Option<ReleaseUpdateInfo>, String> = (|| {
-                let resp = ureq::get(GITHUB_RELEASES_API)
+                let agent = crate::storage::build_http_agent()?;
+                let resp = agent
+                    .get(GITHUB_RELEASES_API)
                     .set("User-Agent", "vex-iq-viewer")
                     .set("Accept", "application/vnd.github+json")
                     .call()
@@ -192,7 +194,9 @@ impl UpdateManager {
         let state = Arc::clone(&self.state);
         std::thread::spawn(move || {
             let res: Result<(), String> = (|| {
-                let resp = ureq::get(&info.download_url)
+                let agent = crate::storage::build_http_agent()?;
+                let resp = agent
+                    .get(&info.download_url)
                     .set("User-Agent", "vex-iq-viewer")
                     .call()
                     .map_err(|e| format!("Ошибка загрузки обновления: {e}"))?;

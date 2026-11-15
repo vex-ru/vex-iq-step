@@ -209,6 +209,22 @@ pub fn extract_zip_bytes_to_cache(
     Ok(extracted)
 }
 
+/// Builds an HTTP/HTTPS client with an explicit TLS backend (Windows SChannel / Unix rustls).
+pub fn build_http_agent() -> Result<ureq::Agent, String> {
+    #[cfg(target_os = "windows")]
+    {
+        let connector = native_tls::TlsConnector::new()
+            .map_err(|e| format!("Ошибка инициализации TLS: {e}"))?;
+        Ok(ureq::AgentBuilder::new()
+            .tls_connector(std::sync::Arc::new(connector))
+            .build())
+    }
+    #[cfg(not(target_os = "windows"))]
+    {
+        Ok(ureq::AgentBuilder::new().build())
+    }
+}
+
 /// Download a ZIP archive from a URL (e.g. GitHub Releases) with live progress and extract it.
 pub fn download_and_extract_zip(
     url: String,
@@ -225,7 +241,10 @@ pub fn download_and_extract_zip(
 
     std::thread::spawn(move || {
         let result: Result<usize, String> = (|| {
-            let resp = ureq::get(&url)
+            let agent = build_http_agent()?;
+            let resp = agent
+                .get(&url)
+                .set("User-Agent", "vex-iq-viewer")
                 .call()
                 .map_err(|e| format!("Ошибка сети: {e}"))?;
 

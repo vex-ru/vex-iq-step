@@ -412,6 +412,29 @@ export const DataSourceModal: React.FC<DataSourceModalProps> = ({
                   style={{ width: `${progress.percent}%` }}
                 />
               </div>
+
+              {progress.stage === 'error' && activeTab === 'github' && zipUrl.trim() && (
+                <div className="pt-2 flex flex-wrap items-center gap-2">
+                  <a
+                    href={zipUrl.trim()}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold bg-cyan-600 hover:bg-cyan-500 text-white transition-colors"
+                  >
+                    <DownloadCloud className="w-3.5 h-3.5" />
+                    Скачать ZIP вручную
+                    <ExternalLink className="w-3 h-3 opacity-80" />
+                  </a>
+                  <button
+                    type="button"
+                    onClick={() => setActiveTab('local_zip')}
+                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 transition-colors cursor-pointer"
+                  >
+                    <FolderArchive className="w-3.5 h-3.5 text-cyan-400" />
+                    Открыть скачанный ZIP
+                  </button>
+                </div>
+              )}
             </div>
           )}
 
